@@ -97,6 +97,11 @@ importers:
       shiki:
         specifier: ^4.0.2
         version: 4.0.2
+  apps/main-processor:
+    devDependencies:
+      '@types/node':
+        specifier: ^25.6.0
+        version: 25.6.0
 
   apps/shared: {}
 

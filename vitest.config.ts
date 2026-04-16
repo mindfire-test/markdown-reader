@@ -6,14 +6,14 @@ export default defineConfig({
   plugins: [react({})],
   test: {
     globals: true,
-    environment: 'jsdom',
+    environment: 'node',
     include: ['**/*.{test,spec}.{ts,tsx}'],
   },
   resolve: {
     alias: {
-      '@shared': resolve(__dirname, './src-shared'),
-      '@renderer': resolve(__dirname, './src-renderer'),
-      '@main': resolve(__dirname, './src-main'),
+      '@shared': resolve(__dirname, 'apps/shared/src'),
+      '@renderer': resolve(__dirname, 'apps/renderer/src'),
+      '@main': resolve(__dirname, 'apps/main-processor/src'),
     },
   },
 });
