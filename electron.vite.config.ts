@@ -7,7 +7,7 @@ export default defineConfig({
     build: {
       externalizeDeps: true,
       lib: {
-        entry: resolve(__dirname, 'src-main/index.ts'),
+        entry: resolve(__dirname, 'apps/main-processor/src/index.ts'),
       },
     },
   },
@@ -15,16 +15,16 @@ export default defineConfig({
     build: {
       externalizeDeps: true,
       lib: {
-        entry: resolve(__dirname, 'src-main/preload.ts'),
+        entry: resolve(__dirname, 'apps/preload/src/index.ts'),
       },
     },
   },
   renderer: {
-    root: resolve(__dirname, 'src-renderer'),
+    root: resolve(__dirname, 'apps/renderer'),
     plugins: [react({})],
     build: {
       rollupOptions: {
-        input: resolve(__dirname, 'src-renderer/index.html'),
+        input: resolve(__dirname, 'apps/renderer/index.html'),
       },
     },
   },

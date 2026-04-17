@@ -1,8 +1,9 @@
 {
-  "name": "shared",
+  "name": "@package/shared-types",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "build": "pnpm exec tsc"
   },

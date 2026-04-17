@@ -1,14 +1,29 @@
-import { createHighlighter, type Highlighter } from 'shiki';
+import { createHighlighterCore } from 'shiki/core';
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
+import type { HighlighterCore } from 'shiki';
 
-let highlighter: Promise<Highlighter> | null = null;
+export const DEFAULT_THEME = 'github-dark';
+let highlighter: HighlighterCore | null = null;
 
-// create sikhi highligher with theme and languages.
-export async function sikhiHighlighter(): Promise<Highlighter> {
-  if (!highlighter) {
-    highlighter = createHighlighter({
-      themes: ['github-dark', 'github-light'],
-      langs: ['java', 'javascript', 'typescript', 'c'],
-    });
+export function resetHilighter() {
+  highlighter = null;
+}
+
+// make shiki highlighter
+export async function sikhiHighlighter(): Promise<HighlighterCore> {
+  if (highlighter) {
+    return highlighter;
   }
+
+  highlighter = await createHighlighterCore({
+    themes: [import('shiki/themes/github-dark.mjs'), import('shiki/themes/github-light.mjs')],
+    langs: [
+      import('shiki/langs/javascript.mjs'),
+      import('shiki/langs/python.mjs'),
+      import('shiki/langs/markdown.mjs'),
+    ],
+    engine: createJavaScriptRegexEngine(),
+  });
+
   return highlighter;
 }

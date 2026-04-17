@@ -2,7 +2,7 @@
   "name": "markdown-reader",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "out/main/index.js",
   "scripts": {
     "prepare": "husky",
     "start": "electron-vite preview",
@@ -27,7 +27,8 @@
     "@typescript-eslint/eslint-plugin": "^8.58.2",
     "@typescript-eslint/parser": "^8.58.2",
     "@vitejs/plugin-react": "^6.0.1",
-    "electron": "^41.2.0",
+    "@vitest/coverage-v8": "4.1.4",
+    "electron": "^41.2.1",
     "electron-vite": "^5.0.0",
     "eslint": "^10.2.0",
     "eslint-config-prettier": "^10.1.8",

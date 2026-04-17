@@ -1,5 +1,6 @@
 import { readFile as fsReadFile } from 'node:fs/promises';
 
+//file read logic
 export async function readFile(filePath: string): Promise<string> {
   try {
     const content = await fsReadFile(filePath, 'utf-8');
