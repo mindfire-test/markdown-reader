@@ -11,6 +11,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.33.0",
   "dependencies": {
-    "@package/shared-types": "workspace:*"
+    "@package/shared-types": "workspace:*",
+    "@package/shared-constants": "workspace:*"
   }
 }

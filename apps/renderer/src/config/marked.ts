@@ -1,6 +1,7 @@
 import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 import { shikiHighlighter } from '../renderer/shiki';
+import { THEMES } from '@package/shared-constants';
 
 let instance: Marked | null = null;
 
@@ -20,7 +21,7 @@ export function getMarkdown(): Marked {
       async: true,
       async highlight(code: string, lang: string): Promise<string> {
         const highlighter = await shikiHighlighter();
-        const theme = 'github-dark';
+        const theme = THEMES.GITHUB_DARK;
         const language = lang || 'text';
         try {
           return highlighter.codeToHtml(code, { lang: language, theme });

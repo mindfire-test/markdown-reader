@@ -90,18 +90,27 @@ importers:
 
   apps/main-processor:
     devDependencies:
+      '@package/shared-constants':
+        specifier: workspace:*
+        version: link:../../packages/shared-constants
       '@types/node':
         specifier: ^25.6.0
         version: 25.6.0
 
   apps/preload:
     dependencies:
+      '@package/shared-constants':
+        specifier: workspace:*
+        version: link:../../packages/shared-constants
       '@package/shared-types':
         specifier: workspace:*
         version: link:../../packages/shared-types
 
   apps/renderer:
     dependencies:
+      '@package/shared-constants':
+        specifier: workspace:*
+        version: link:../../packages/shared-constants
       '@package/shared-types':
         specifier: workspace:*
         version: link:../../packages/shared-types
@@ -117,6 +126,8 @@ importers:
       shiki:
         specifier: ^4.0.2
         version: 4.0.2
+
+  packages/shared-constants: {}
 
   packages/shared-types: {}
 

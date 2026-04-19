@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron';
-import { join } from 'node:path';
 import { registerIPCHandlers } from './ipc';
+import { WINDOW_CONSTANTS } from './utils/window-constants';
+import { PATHS } from './utils/path-constants';
 
 // register all IPC before window is created
 registerIPCHandlers();
@@ -8,12 +9,12 @@ registerIPCHandlers();
 //create electron window
 function createWindow(): void {
   const mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
-    minWidth: 600,
-    minHeight: 400,
+    width: WINDOW_CONSTANTS.WIDTH,
+    height: WINDOW_CONSTANTS.HEIGHT,
+    minWidth: WINDOW_CONSTANTS.MIN_WIDTH,
+    minHeight: WINDOW_CONSTANTS.MIN_HEIGHT,
     webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
+      preload: PATHS.PRELOAD,
       contextIsolation: true,
       nodeIntegration: false,
     },
@@ -22,7 +23,7 @@ function createWindow(): void {
   if (process.env.ELECTRON_RENDERER_URL) {
     mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
   } else {
-    mainWindow.loadFile(join(__dirname, '../renderer/index.html'));
+    mainWindow.loadFile(PATHS.RENDERER_HTML);
   }
 }
 

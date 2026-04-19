@@ -1,15 +1,16 @@
 import { ipcMain, dialog } from 'electron';
 import { readFile } from './file';
+import { IPC_CONSTANTS } from '@package/shared-constants';
 
 //registers all IPC handlers for main process
 export function registerIPCHandlers(): void {
   //returns text content of the file
-  ipcMain.handle('readFile', async (_event, filePath: string) => {
+  ipcMain.handle(IPC_CONSTANTS.READ_FILE, async (_event, filePath: string) => {
     return await readFile(filePath);
   });
 
   // opens the file path
-  ipcMain.handle('openFileDialog', async () => {
+  ipcMain.handle(IPC_CONSTANTS.OPEN_FILE_DIALOG, async () => {
     const result = await dialog.showOpenDialog({
       title: 'Open Markdown File',
       filters: [

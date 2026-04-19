@@ -1,0 +1,14 @@
+export const IPC_CONSTANTS = {
+  READ_FILE: 'readFile',
+  OPEN_FILE_DIALOG: 'openFileDialog',
+  OPEN_FOLDER_DIALOG: 'openFolderDialog',
+  READ_FOLDER: 'readFolder',
+  GET_RECENT_FILES: 'getRecentFiles',
+  ADD_RECENT_FILES: 'addRecentFile',
+  CLEAR_RECENT_FILES: 'clearRecentFiles',
+  GET_SETTINGS: 'getSettings',
+  SAVE_SETTINGS: 'saveSettings',
+  GET_APP_VERSION: 'getAppVersion',
+  WATCH_FILE: 'watchFile',
+  UNWATCH_FILE: 'unWatchFile',
+} as const;
