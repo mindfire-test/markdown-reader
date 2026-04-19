@@ -10,7 +10,7 @@ export function resetHilighter() {
 }
 
 // make shiki highlighter
-export async function sikhiHighlighter(): Promise<HighlighterCore> {
+export async function shikiHighlighter(): Promise<HighlighterCore> {
   if (highlighter) {
     return highlighter;
   }
