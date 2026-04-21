@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import { MarkdownReaderAPI } from '@package/shared-types';
+import { MarkdownReaderAPI, ThemeType } from '@package/shared-types';
 import { IPC_CONSTANTS } from '@package/shared-constants';
 import { BRIDGE_NAME } from '@package/shared-constants';
 
@@ -18,5 +18,13 @@ const apiContract: MarkdownReaderAPI = {
   unWatchFile: (path) => ipcRenderer.invoke(IPC_CONSTANTS.UNWATCH_FILE, path),
 };
 
+const themeContract: ThemeType = {
+  toggle: () => ipcRenderer.invoke(IPC_CONSTANTS.TOGGLE_MODE),
+  reset: () => ipcRenderer.invoke(IPC_CONSTANTS.SYSTEM_MODE),
+};
+
 // bridge between renderer and main
 contextBridge.exposeInMainWorld(BRIDGE_NAME.API, apiContract);
+
+//theme bridge
+contextBridge.exposeInMainWorld(BRIDGE_NAME.THEME, themeContract);

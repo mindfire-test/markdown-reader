@@ -11,4 +11,6 @@ export const IPC_CONSTANTS = {
   GET_APP_VERSION: 'getAppVersion',
   WATCH_FILE: 'watchFile',
   UNWATCH_FILE: 'unWatchFile',
+  TOGGLE_MODE: 'dark-mode:toggle',
+  SYSTEM_MODE: 'dark-mode:system',
 } as const;
