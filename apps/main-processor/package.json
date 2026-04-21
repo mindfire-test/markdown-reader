@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
     "build": "pnpm exec tsc"
   },
   "keywords": [],
@@ -12,7 +14,9 @@
   "license": "ISC",
   "packageManager": "pnpm@10.33.0",
   "devDependencies": {
+    "@package/shared-constants": "workspace:*",
     "@types/node": "^25.6.0",
-    "@package/shared-constants": "workspace:*"
+    "@vitest/coverage-v8": "^4.1.5",
+    "vitest": "^4.1.5"
   }
 }
