@@ -10,3 +10,13 @@ export interface ReaderProps {
 export interface WelcomeProps {
   onOpen: () => void;
 }
+
+export interface HeadingProps {
+  text: string;
+  depth: number;
+}
+export interface TOCType {
+  id: string;
+  text: string;
+  level: 1 | 2 | 3;
+}
