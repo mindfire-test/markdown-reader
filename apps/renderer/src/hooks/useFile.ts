@@ -1,12 +1,15 @@
 import { useState, useCallback } from 'react';
 import DOMpurify from 'dompurify';
 import { renderMarkdown } from '../renderer/markdown';
+import { extractTOC } from '../renderer/toc';
+import { TOCType } from '../types/component-types';
 
 export function useFile() {
   const [html, setHtml] = useState<string>('');
   const [filePath, setFilePath] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
+  const [toc, setToc] = useState<TOCType[]>([]);
 
   const loadFile = useCallback(async (path: string) => {
     setIsLoading(true);
@@ -15,7 +18,9 @@ export function useFile() {
     try {
       const rawMarkdown = await window.api.readFile(path);
       const renderHtml = await renderMarkdown(rawMarkdown);
-      setHtml(DOMpurify.sanitize(renderHtml));
+      const safeHtml = DOMpurify.sanitize(renderHtml);
+      setHtml(safeHtml);
+      setToc(extractTOC(safeHtml));
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);
@@ -31,5 +36,5 @@ export function useFile() {
     if (!chosenPath) return;
     await loadFile(chosenPath);
   }, [loadFile]);
-  return { html, filePath, openFile, error, isLoading };
+  return { html, filePath, openFile, error, isLoading, toc };
 }

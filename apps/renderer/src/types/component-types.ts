@@ -20,3 +20,10 @@ export interface TOCType {
   text: string;
   level: 1 | 2 | 3;
 }
+
+export interface SidebarProps {
+  tocItems: TOCType[];
+  activeId: string;
+  onSelect: (id: string) => void;
+  isVisible?: boolean;
+}

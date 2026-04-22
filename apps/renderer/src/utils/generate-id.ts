@@ -15,3 +15,9 @@ export function heading({ text, depth }: HeadingProps) {
   const id = getHeadingId(text);
   return `<h${depth} id="${id}">${text}</h${depth}>\n`;
 }
+
+//removes inline html
+export function stripHtml(html: string): string {
+  const strip = html.replace(/<[^>]+>/g, '');
+  return strip;
+}
