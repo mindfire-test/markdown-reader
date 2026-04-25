@@ -16,3 +16,19 @@ export interface ThemeContextType {
   toggleTheme: () => Promise<void>;
   resetToSystem: () => Promise<void>;
 }
+export interface HeadingProps {
+  text: string;
+  depth: number;
+}
+export interface TOCType {
+  id: string;
+  text: string;
+  level: 1 | 2 | 3;
+}
+
+export interface SidebarProps {
+  tocItems: TOCType[];
+  activeId: string;
+  onSelect: (id: string) => void;
+  isVisible?: boolean;
+}

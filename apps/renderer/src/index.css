@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-brand-deep: #1b2a4a;
+  --color-brand-primary: #1d4ed8;
+  --color-brand-gray: #6b7280;
+
+  --color-bg-soft: #f9fafb;
+  --color-bg-hover: #f3f4f6;
+  --color-border: #e5e7eb;
+
+  --color-accent-soft: #eff6ff;
+
+  --color-error-bg: #fee2e2;
+  --color-error: #b91c1c;
+  --color-error-strong: #dc2626;
+
+  --color-skeleton: #e5e7eb;
+  --color-skeleton-soft: #f3f4f6;
+}
+
+body {
+  @apply font-sans bg-white  antialiased;
+}

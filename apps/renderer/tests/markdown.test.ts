@@ -5,14 +5,14 @@ describe('renderMarkdown', () => {
   //test-1 :- converts heading to h1
   it('converts # heading to <h1> element', async () => {
     const html = await renderMarkdown('# Hello World');
-    expect(html).toContain('<h1>Hello World</h1>');
+    expect(html).toContain('<h1 id="hello-world">Hello World</h1>');
   });
 
   //test-2:- converts sub heading to h2
   it('converts ## heading to <h2> and ### to <h3>', async () => {
     const html = await renderMarkdown('## Section\n### Subsection');
-    expect(html).toContain('<h2>Section</h2>');
-    expect(html).toContain('<h3>Subsection</h3>');
+    expect(html).toContain('<h2 id="section">Section</h2>');
+    expect(html).toContain('<h3 id="subsection">Subsection</h3>');
   });
 
   //test-3:- converts bold text to strong

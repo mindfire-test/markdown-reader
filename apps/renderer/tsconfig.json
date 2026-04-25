@@ -4,7 +4,9 @@
     "jsx": "react-jsx",
     "rootDir": "./",
     "outDir": "./dist",
-    "types": ["vitest/globals"]
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["vitest/globals", "vite/client"]
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

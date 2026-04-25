@@ -2,6 +2,7 @@ import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 import { shikiHighlighter } from '../renderer/shiki';
 import { THEMES } from '@package/shared-constants';
+import { heading } from '../utils/generate-id';
 
 let instance: Marked | null = null;
 
@@ -10,7 +11,8 @@ export function getMarkdown(): Marked {
   instance = new Marked();
 
   // configure marked with GFM options
-  instance.setOptions({
+  instance.use({
+    renderer: { heading },
     gfm: true,
     breaks: false,
   });
