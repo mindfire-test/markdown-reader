@@ -27,3 +27,10 @@ export interface SidebarProps {
   onSelect: (id: string) => void;
   isVisible?: boolean;
 }
+
+export interface ToastProps {
+  message: string;
+  show: boolean;
+  onDone: () => void;
+  duration?: number;
+}

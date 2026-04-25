@@ -36,5 +36,9 @@ export function useFile() {
     if (!chosenPath) return;
     await loadFile(chosenPath);
   }, [loadFile]);
-  return { html, filePath, openFile, error, isLoading, toc };
+  const reloadFile = useCallback(async () => {
+    if (!filePath) return;
+    await loadFile(filePath);
+  }, [filePath, loadFile]);
+  return { html, filePath, openFile, error, isLoading, toc, reloadFile };
 }
