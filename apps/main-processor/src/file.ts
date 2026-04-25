@@ -27,7 +27,9 @@ export async function watchFile(filePath: string, onChange: () => void): Promise
       pollInterval: 50,
     },
   });
-
+  await new Promise<void>((resolve) => {
+    watcher.on('ready', resolve);
+  });
   watcher.on('change', onChange);
   currentWatchers.set(filePath, watcher);
 }

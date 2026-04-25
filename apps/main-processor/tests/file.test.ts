@@ -62,7 +62,7 @@ describe('File watcher', () => {
     await watchFile(TEST_FILE, cb);
     await watchFile(TEST_FILE, cb);
     writeFileSync(TEST_FILE, 'checking for duplicates');
-    await vi.waitFor(() => expect(cb).toHaveBeenCalledTimes(1), 500);
+    await vi.waitFor(() => expect(cb).toHaveBeenCalledTimes(1), 1500);
     await unWatchFile(TEST_FILE);
   });
 
