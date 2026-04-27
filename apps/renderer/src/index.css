@@ -1,25 +1,100 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@theme {
-  --color-brand-deep: #1b2a4a;
-  --color-brand-primary: #1d4ed8;
-  --color-brand-gray: #6b7280;
 
-  --color-bg-soft: #f9fafb;
-  --color-bg-hover: #f3f4f6;
-  --color-border: #e5e7eb;
-
-  --color-accent-soft: #eff6ff;
-
-  --color-error-bg: #fee2e2;
-  --color-error: #b91c1c;
-  --color-error-strong: #dc2626;
-
-  --color-skeleton: #e5e7eb;
-  --color-skeleton-soft: #f3f4f6;
+:root {
+  --bg-primary: #ffffff;
+  --text-primary: #1f2328;
+  --text-secondary: #656d76;
+  --sidebar-bg: #f6f8fa;
+  --border-color: #e5e7eb;
+  --link-color: #0969da;
+  --code-bg: #f6f8fa;
 }
 
+
+.app-bg {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.sidebar-bg {
+  background: var(--sidebar-bg);
+}
+
+.border-theme {
+  border-color: var(--border-color);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.link-theme {
+  color: var(--link-color);
+}
+
+.code-bg {
+  background: var(--code-bg);
+}
+
+.error-bg {
+  background: #fee2e2;
+}
+
+.error-text {
+  color: #b91c1c;
+}
+
+.error-border {
+  border-color: #dc2626;
+}
+
+.prose {
+  color: var(--text-primary);
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+  color: var(--text-primary);
+}
+
+.prose a {
+  color: var(--link-color);
+}
+
+
+.prose code {
+  background: var(--code-bg);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+
+.prose pre code {
+  background: none;
+  padding: 0;
+}
+
+.toc-active {
+  border-left-color: var(--text-primary);
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.05);
+  font-weight: 500;
+}
+
+.toc-inactive {
+  border-color: transparent;
+  color: var(--text-secondary);
+}
+
+.toc-inactive:hover {
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+
 body {
-  @apply font-sans bg-white  antialiased;
+  @apply font-sans antialiased;
 }

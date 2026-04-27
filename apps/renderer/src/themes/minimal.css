@@ -1,0 +1,11 @@
+[data-theme="minimal"] {
+  --bg-primary: #ffffff;
+  --text-primary: #000000;
+  --text-secondary: #555555;
+
+  --sidebar-bg: #f9f9f9;
+  --border-color: #dddddd;
+
+  --link-color: #000000;
+  --code-bg: #f4f4f4;
+}

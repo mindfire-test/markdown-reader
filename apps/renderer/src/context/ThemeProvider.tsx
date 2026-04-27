@@ -1,25 +1,37 @@
-import React,{createContext,useState} from "react";
-import { ThemeContextType } from "../types/component-types";
-
-
+import React,{createContext,useState,useEffect,useCallback} from "react";
+import { ThemeContextType,Theme } from "../types/component-types";
+import { APPTHEMES } from "../utils/app-themes";
 
 export const ThemeContext=createContext<ThemeContextType|undefined>(undefined);
 
-export const ThemeProvider:React.FC<{children:React.ReactNode}>=({children})=>{
-    const [themeSource,setThemeSource]=useState('System');
-    const toggleTheme=async()=>{
-        const darkMode=await window.theme.toggle();
-        setThemeSource(darkMode ?'Dark':'Light');
-    }
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setThemeState] = useState<Theme>('github-light');
 
-    const resetToSystem= async()=>{
-        await window.theme.reset();
-        setThemeSource('System')
+  useEffect(()=>{
+    const saved=localStorage.getItem('app-theme');
+    if(saved && APPTHEMES.includes(saved as Theme)){
+        setTheme(saved as Theme);
     }
+  },[])
 
-    return(
-        <ThemeContext.Provider value={{themeSource,toggleTheme,resetToSystem}}>
-            {children}
-        </ThemeContext.Provider>
-    );
-};
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('app-theme', theme);
+  }, [theme]);
+
+  const setTheme = useCallback((t: Theme) => {
+    setThemeState(t);
+  }, []);
+
+  const toggleTheme = () => {
+    const currentIdx=APPTHEMES.indexOf(theme);
+    const nextTheme=APPTHEMES[(currentIdx + 1) % APPTHEMES.length] as Theme;
+    setThemeState(nextTheme);
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}

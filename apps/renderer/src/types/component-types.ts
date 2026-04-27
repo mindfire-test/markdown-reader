@@ -1,3 +1,4 @@
+import { APPTHEMES } from '../utils/app-themes';
 export interface ErrorProps {
   message: string;
   onRetry: () => void;
@@ -11,10 +12,11 @@ export interface WelcomeProps {
   onOpen: () => void;
 }
 
+export type Theme = (typeof APPTHEMES)[number];
 export interface ThemeContextType {
-  themeSource: string;
-  toggleTheme: () => Promise<void>;
-  resetToSystem: () => Promise<void>;
+  theme: Theme;
+  toggleTheme: () => void;
+  setTheme: (theme: Theme) => void;
 }
 export interface HeadingProps {
   text: string;

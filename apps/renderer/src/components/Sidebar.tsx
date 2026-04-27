@@ -7,7 +7,7 @@ export function Sidebar({tocItems,activeId,onSelect,isVisible=true}:SidebarProps
         return null;
     }
     return (
-        <nav className="w-64 min-w-50 max-w-[320px] border-r border-gray-200 overflow-y-auto py-6 bg-gray-50" aria-label="Table of contents">
+        <nav className="w-64 min-w-50 max-w-[320px] border-r border-theme overflow-y-auto py-6 text-secondary" aria-label="Table of contents">
             <p className="text-xs font-bold uppercase tracking-wider text-gray-400 px-4 pb-3">Contents</p>
             <ul>
                 {tocItems.map((item)=>(

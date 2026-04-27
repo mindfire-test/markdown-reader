@@ -26,7 +26,17 @@ export function getMarkdown(): Marked {
         const theme = THEMES.GITHUB_DARK;
         const language = lang || 'text';
         try {
-          return highlighter.codeToHtml(code, { lang: language, theme });
+          return highlighter.codeToHtml(code, {
+            lang: language,
+            theme,
+            transformers: [
+              {
+                pre(node) {
+                  node.properties.style = '';
+                },
+              },
+            ],
+          });
         } catch {
           return highlighter.codeToHtml(code, { lang: 'text', theme });
         }

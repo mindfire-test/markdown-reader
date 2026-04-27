@@ -1,0 +1,11 @@
+[data-theme="dracula"] {
+  --bg-primary: #282a36;
+  --text-primary: #f8f8f2;
+  --text-secondary: #6272a4;
+
+  --sidebar-bg: #21222c;
+  --border-color: #44475a;
+
+  --link-color: #bd93f9;
+  --code-bg: #21222c;
+}
