@@ -1,4 +1,4 @@
-import { TOCType } from '../types/component-types';
+import { TOCType } from '../../types/component-types';
 
 // sets item level wise
 export function getItemClasses(item: TOCType, activeId: string): string {

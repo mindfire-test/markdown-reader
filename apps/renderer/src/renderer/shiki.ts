@@ -1,7 +1,7 @@
 import { createHighlighterCore } from 'shiki/core';
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
 import type { HighlighterCore } from 'shiki';
-import { SHIKI_LANG, SHIKI_THEME } from '../utils/shiki-list';
+import { SHIKI_LANG, SHIKI_THEME } from '../utils/constants/shiki-constants';
 
 let highlighter: HighlighterCore | null = null;
 const themes = Object.values(SHIKI_THEME).map((fn) => fn());

@@ -1,11 +1,11 @@
-import { HeadingProps } from '../types/component-types';
-
+import { HeadingProps } from '../../types/component-types';
+import { SLUG_PATTERNS, HTML_PATTERNS } from '../constants/regex-constants';
 // converts heading text into a ID
 export function getHeadingId(text: string): string {
   let id = text.toLowerCase();
-  id = id.replace(/[^\w\s-]/g, '');
-  id = id.replace(/[\s_]+/g, '-');
-  id = id.trim().replace(/^-+|-+$/g, '');
+  id = id.replace(SLUG_PATTERNS.NON_WORD, '');
+  id = id.replace(SLUG_PATTERNS.SPACES, '-');
+  id = id.trim().replace(SLUG_PATTERNS.TRIM_HYPHENS, '');
 
   return id;
 }
@@ -18,6 +18,6 @@ export function heading({ text, depth }: HeadingProps) {
 
 //removes inline html
 export function stripHtml(html: string): string {
-  const strip = html.replace(/<[^>]+>/g, '');
+  const strip = html.replace(HTML_PATTERNS.ANY_TAG, '');
   return strip;
 }
