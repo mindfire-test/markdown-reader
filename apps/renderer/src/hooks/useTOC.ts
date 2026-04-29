@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TOCType } from '../types/component-types';
 
-export function useTOC(tocItems: TOCType[]) {
+export function useToc(tocItems: TOCType[]) {
   const [activeId, setActiveId] = useState('');
   useEffect(() => {
     if (!tocItems.length) return;
