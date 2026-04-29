@@ -4,7 +4,7 @@ import { Welcome } from './components/Welcome';
 import { Reader } from './components/Reader';
 import { Loading } from './components/Loading';
 import { Error } from './components/Error';
-import { useTOC } from './hooks/useTOC';
+import { useToc } from './hooks/useToc';
 import { Sidebar } from './components/Sidebar';
 import { useWatcher } from './hooks/useWatcher';
 import { saveScrollPos, getScrollPos } from './renderer/scroll';
@@ -13,6 +13,7 @@ import { useTheme } from './hooks/useTheme';
 import { BuiltThemeType } from './types/component-types';
 import { useSearch } from './hooks/useSearch';
 import { SearchBar } from './components/SearchBar';
+import { useSettings } from './hooks/useSettings';
 
 
 
@@ -20,10 +21,11 @@ import { SearchBar } from './components/SearchBar';
 export default function App() {
 const { html, filePath, error, isLoading, openFile, toc, reloadFile } = useFile();  
 const { theme, toggleTheme,setTheme } = useTheme();
-  const {activeId,scrollToHeading}=useTOC(toc);
+  const {activeId,scrollToHeading}=useToc(toc);
   const [sidebarOpen,setSidebarOpen]=useState(true);
   const [showToast, setShowToast]=useState(false);
   const {query,matchCount,currentMatch,isSearchOpen,openSearch,closeSearch,setQuery,goToNextMatch,goToPrevMatch,getHiglightedHtml}=useSearch(html);
+  const {increaseFontSize,decreaseFontSize,resetFontSize}=useSettings();
 
   const contentRef=useRef<HTMLDivElement>(null);
 
@@ -49,6 +51,21 @@ const { theme, toggleTheme,setTheme } = useTheme();
       if((e.metaKey || e.ctrlKey) && e.key==='f'){
         e.preventDefault();
         openSearch();
+      }
+
+      if((e.metaKey||e.ctrlKey) && e.key==='='){
+        e.preventDefault();
+        increaseFontSize()
+      }
+
+      if((e.metaKey||e.ctrlKey) && (e.key==='-'||e.key==='+')){
+        e.preventDefault();
+        decreaseFontSize();
+      }
+
+      if((e.metaKey||e.ctrlKey) && e.key==='0'){
+        e.preventDefault();
+        resetFontSize();
       }
     };
     window.addEventListener('keydown', handleKeyDown);

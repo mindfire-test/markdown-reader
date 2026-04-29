@@ -73,3 +73,19 @@ export interface SearchBarProps {
   onPrev: () => void;
   onClose: () => void;
 }
+
+export type ReadingWidth = 'narrow' | 'default' | 'wide' | 'full';
+
+export const FONT_SISE = {
+  DEFAULT: 16,
+  MIN: 12,
+  MAX: 24,
+  INCREMENT: 2,
+};
+
+export const WIDTH_MAP: Record<ReadingWidth, string> = {
+  narrow: '640px',
+  default: '768px',
+  wide: '1024px',
+  full: '100%',
+};
