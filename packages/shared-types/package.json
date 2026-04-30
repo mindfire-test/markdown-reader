@@ -1,14 +1,16 @@
 {
   "name": "@package/shared-types",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.3.0",
+  "description": "Sub-package for Markdown Reader",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "pnpm exec tsc"
+    "build": "pnpm exec tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Mindfire-digital",
   "license": "ISC",
   "packageManager": "pnpm@10.33.0"
 }

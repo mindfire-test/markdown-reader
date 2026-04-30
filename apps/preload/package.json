@@ -1,13 +1,15 @@
 {
   "name": "preload",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sub-package for Markdown Reader",
   "main": "index.js",
   "scripts": {
-    "build": "pnpm exec tsc"
+    "build": "pnpm exec tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Mindfire-digital",
   "license": "ISC",
   "packageManager": "pnpm@10.33.0",
   "dependencies": {

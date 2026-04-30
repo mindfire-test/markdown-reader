@@ -1,14 +1,21 @@
 {
   "name": "markdown-reader",
   "version": "0.3.0",
-  "description": "",
+  "description": "A markdown reader built with Electron",
   "main": "out/main/index.js",
   "scripts": {
     "prepare": "husky",
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
-    "prebuild": "electron-vite build",
-    "dist": "pnpm prebuild && electron-builder"
+    "build": "electron-vite build",
+    "dist": "pnpm build && electron-builder",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish",
+    "lint": "pnpm -r run lint",
+    "typecheck": "pnpm -r run typecheck",
+    "test": "pnpm -r run test",
+    "test:coverage": "pnpm -r run test:coverage"
   },
   "build": {
     "appId": "com.markdown.reader",
@@ -18,18 +25,20 @@
     },
     "files": [
       "out/**/*",
-      "node_modules/**/*",
       "package.json"
     ],
     "win": {
       "target": "nsis"
-    }
+    },
+    "asar": true
   },
   "keywords": [],
-  "author": "",
+  "author": "Mindfire-digital",
+  "contributors": [],
   "license": "ISC",
   "packageManager": "pnpm@10.33.0",
   "devDependencies": {
+    "@changesets/cli": "^2.31.0",
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
     "@eslint/js": "^10.0.1",

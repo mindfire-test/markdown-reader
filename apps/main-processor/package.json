@@ -1,16 +1,18 @@
 {
   "name": "main-processor",
   "version": "0.3.0",
-  "description": "",
+  "description": "Sub-package for Markdown Reader",
   "main": "index.js",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest --coverage",
-    "build": "pnpm exec tsc"
+    "build": "pnpm exec tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Mindfire-digital",
   "license": "ISC",
   "packageManager": "pnpm@10.33.0",
   "devDependencies": {

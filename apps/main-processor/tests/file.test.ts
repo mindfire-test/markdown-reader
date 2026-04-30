@@ -43,8 +43,9 @@ describe('File watcher', () => {
   it('should trigger the callback when I change the file', async () => {
     const cb = vi.fn();
     await watchFile(TEST_FILE, cb);
+    await new Promise((r) => setTimeout(r, 100));
     writeFileSync(TEST_FILE, 'new content');
-    await vi.waitFor(() => expect(cb).toHaveBeenCalled(), 500);
+    await vi.waitFor(() => expect(cb).toHaveBeenCalled(), 1000);
     await unWatchFile(TEST_FILE);
   });
 

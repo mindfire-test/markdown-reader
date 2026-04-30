@@ -1,10 +1,11 @@
 import path from 'path';
+import { IpcMainInvokeEvent } from 'electron';
 
 // production and dev urls
 const allowedOrigin = ['file://', 'http://localhost'];
 
 //validate the sender
-export function validateSender(event: Electron.IpcMainInvokeEvent): boolean {
+export function validateSender(event: IpcMainInvokeEvent): boolean {
   const url = event.senderFrame?.url || '';
   return allowedOrigin.some((origin) => url.startsWith(origin));
 }
