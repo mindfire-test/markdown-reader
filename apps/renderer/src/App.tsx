@@ -4,7 +4,7 @@ import { Welcome } from './components/Welcome';
 import { Reader } from './components/Reader';
 import { Loading } from './components/Loading';
 import { Error } from './components/Error';
-import { useToc } from './hooks/useToc';
+import { useToc } from './hooks/useTOC';
 import { Sidebar } from './components/Sidebar';
 import { useWatcher } from './hooks/useWatcher';
 import { saveScrollPos, getScrollPos } from './renderer/scroll';
@@ -14,18 +14,19 @@ import { BuiltThemeType } from './types/component-types';
 import { useSearch } from './hooks/useSearch';
 import { SearchBar } from './components/SearchBar';
 import { useSettings } from './hooks/useSettings';
+import { StatusBar } from './components/StatusBar';
 
 
 
 
 export default function App() {
-const { html, filePath, error, isLoading, openFile, toc, reloadFile } = useFile();  
+const { html, filePath, error, isLoading, openFile, toc, reloadFile,recentFiles,loadFile } = useFile();  
 const { theme, toggleTheme,setTheme } = useTheme();
   const {activeId,scrollToHeading}=useToc(toc);
   const [sidebarOpen,setSidebarOpen]=useState(true);
   const [showToast, setShowToast]=useState(false);
   const {query,matchCount,currentMatch,isSearchOpen,openSearch,closeSearch,setQuery,goToNextMatch,goToPrevMatch,getHiglightedHtml}=useSearch(html);
-  const {increaseFontSize,decreaseFontSize,resetFontSize}=useSettings();
+  const {increaseFontSize,decreaseFontSize,resetFontSize,fontSize}=useSettings();
 
   const contentRef=useRef<HTMLDivElement>(null);
 
@@ -107,14 +108,23 @@ const { theme, toggleTheme,setTheme } = useTheme();
   
 
   return (
-    <div className="h-screen flex flex-col app-bg">
+    <>
+    <div className="h-screen flex flex-col bg-bg text-text-base">
       {isLoading && <Loading />}
-       {isSearchOpen &&(
-        <SearchBar query={query} matchCount={matchCount} currentMatch={currentMatch} onQueryChange={setQuery} onNext={goToNextMatch} onPrev={goToPrevMatch} onClose={closeSearch}/>
+      {isSearchOpen && (
+        <SearchBar
+          query={query}
+          matchCount={matchCount}
+          currentMatch={currentMatch}
+          onQueryChange={setQuery}
+          onNext={goToNextMatch}
+          onPrev={goToPrevMatch}
+          onClose={closeSearch}
+        />
       )}
-      <div className='flex justify-between items-center px-4 py-2 border-b border-theme'>
+      <header className='flex justify-between items-center px-4 py-2 border-b border-border-theme shrink-0'>
         <span className='text-sm font-medium'>Markdown Reader</span>
-        <select value={theme} onChange={(e)=>setTheme(e.target.value as BuiltThemeType)} className='px-2 py-1 border border-theme rounded '>
+        <select value={theme} onChange={(e) => setTheme(e.target.value as BuiltThemeType)} className="px-2 py-1 text-sm bg-surface border border-border-theme rounded text-text-base focus:outline-none">
           <option value="github-light">Light</option>
           <option value="github-dark">Dark</option>
           <option value="notion">Notion</option>
@@ -122,10 +132,13 @@ const { theme, toggleTheme,setTheme } = useTheme();
           <option value="minimal">Minimal</option>
           <option value="dracula">Dracula</option>
         </select>
-      </div>
+      </header>
 
       {error && <Error message={error} onRetry={openFile} />}
-      {!filePath && !isLoading && <Welcome onOpen={openFile} />}
+
+      {!filePath && !isLoading && (
+        <Welcome onOpen={openFile} recentFiles={recentFiles} onOpenRecent={loadFile} />
+      )}
 
       {html && !isLoading && !error && (
         <div className="flex flex-1 overflow-hidden">
@@ -135,14 +148,18 @@ const { theme, toggleTheme,setTheme } = useTheme();
             onSelect={scrollToHeading}
             isVisible={sidebarOpen}
           />
-
-          <main ref={contentRef} className="flex-1 overflow-y-auto px-8 py-6" onScroll={scroll}>
+          <main
+            ref={contentRef}
+            className="flex-1 overflow-y-auto"
+            onScroll={scroll}
+          >
             <Reader html={html} getHiglightedHtml={getHiglightedHtml} />
           </main>
         </div>
       )}
 
       <Toast message="File updated" show={showToast} onDone={() => setShowToast(false)} />
+      <StatusBar filePath={filePath} theme={theme} fontSize={fontSize}/>
     </div>
-  );
-}
+    </>
+  )}

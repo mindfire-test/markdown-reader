@@ -1,4 +1,5 @@
 import { APPTHEMES } from '../utils/constants/theme-constants';
+import { RecentFile } from '@package/shared-types/dist/src/recentfile-type';
 export interface ErrorProps {
   message: string;
   onRetry: () => void;
@@ -11,6 +12,8 @@ export interface ReaderProps {
 
 export interface WelcomeProps {
   onOpen: () => void;
+  recentFiles: RecentFile[];
+  onOpenRecent?: (path: string) => void;
 }
 
 export type Theme = (typeof APPTHEMES)[number];
