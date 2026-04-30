@@ -1,6 +1,6 @@
 import React,{createContext,useState,useEffect,useCallback} from "react";
 import { ThemeContextType,Theme } from "../types/component-types";
-import { APPTHEMES } from "../utils/app-themes";
+import { APPTHEMES } from "../utils/constants/theme-constants";
 
 export const ThemeContext=createContext<ThemeContextType|undefined>(undefined);
 

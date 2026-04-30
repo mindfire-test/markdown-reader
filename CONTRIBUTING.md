@@ -33,7 +33,7 @@ We are committed to fostering a welcoming and inclusive community. Before contri
 
 ## Contribution Workflow
 
-### 1\. Setup Your Environment
+### 1. Setup Your Environment
 
 First, get the project running on your local machine.
 
@@ -48,7 +48,7 @@ First, get the project running on your local machine.
   pnpm install
   ```
 
-### 2\. Create a Branch
+### 2. Create a Branch
 
 Create a new branch for your changes. A descriptive name helps us understand what you're working on.
 
@@ -65,7 +65,7 @@ git checkout -b feature/add-reader-component
 git checkout -b fix/button-alignment-issue
 ```
 
-### 6\. Write Unit Tests
+### 6. Write Unit Tests
 
 We require tests for all new features to maintain code quality.
 
@@ -75,7 +75,7 @@ We require tests for all new features to maintain code quality.
   pnpm vitest
   ```
 
-### 7\. Commit and Push Your Changes
+### 7. Commit and Push Your Changes
 
 - **Stage and Commit:** Add your changes and write a clear, descriptive commit message that follows the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
   ```bash
@@ -87,7 +87,7 @@ We require tests for all new features to maintain code quality.
   git push origin feature/add-avatar-component
   ```
 
-### 8\. Create a Pull Request
+### 8. Create a Pull Request
 
 - Go to your forked repository on GitHub and click "Compare & pull request".
 - Set the base branch to `development`.

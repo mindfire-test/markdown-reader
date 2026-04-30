@@ -1,5 +1,6 @@
 import { ipcMain, dialog } from 'electron';
 import { readFile, unWatchFile, watchFile } from './file';
+import { getRecentFiles, addRecentFile } from './recent';
 import { validateMarkdownFile, validatePath, validateSender } from './utils/ipc-validation';
 import { IPC_CONSTANTS } from '@package/shared-constants';
 
@@ -44,6 +45,7 @@ export function registerIPCHandlers(): void {
     return selected;
   });
 
+  // watches a file
   ipcMain.handle(IPC_CONSTANTS.WATCH_FILE, async (event, filePath: string) => {
     if (!validateSender(event)) {
       throw new Error('Untrusted sender');
@@ -56,6 +58,7 @@ export function registerIPCHandlers(): void {
     });
   });
 
+  //un watch file
   ipcMain.handle(IPC_CONSTANTS.UNWATCH_FILE, async (event, filePath: string) => {
     if (!validateSender(event)) {
       throw new Error('Untrusted sender');
@@ -64,5 +67,24 @@ export function registerIPCHandlers(): void {
       throw new Error('Invalid file path');
     }
     await unWatchFile(filePath);
+  });
+
+  //get recent files
+  ipcMain.handle(IPC_CONSTANTS.GET_RECENT_FILES, async (event) => {
+    if (!validateSender(event)) {
+      throw new Error('Untrusted sender');
+    }
+    return await getRecentFiles();
+  });
+
+  // add recent files
+  ipcMain.handle(IPC_CONSTANTS.ADD_RECENT_FILES, async (event, filePath: string) => {
+    if (!validateSender(event)) {
+      throw new Error('Untrusted sender');
+    }
+    if (!validatePath(filePath)) {
+      throw new Error('Invalid file path');
+    }
+    await addRecentFile(filePath);
   });
 }

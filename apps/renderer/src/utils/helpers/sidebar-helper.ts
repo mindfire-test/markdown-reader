@@ -1,8 +1,8 @@
-import { TOCType } from '../types/component-types';
+import { TOCType } from '../../types/component-types';
 
 // sets item level wise
 export function getItemClasses(item: TOCType, activeId: string): string {
-  let baseStyle = 'block w-full text-left px-4 py-1 text-sm transition-colors border-1-2';
+  let baseStyle = 'block w-full text-left px-4 py-1 text-sm transition';
   if (item.level === 1) {
     baseStyle += ' pl-4 font-semibold';
   }
@@ -13,9 +13,9 @@ export function getItemClasses(item: TOCType, activeId: string): string {
     baseStyle += ' pl-12 text-xs';
   }
   if (item.id === activeId) {
-    baseStyle += ' toc-active';
+    baseStyle += ' toc-item';
   } else {
-    baseStyle += ' toc-inactive';
+    baseStyle += ' toc-item';
   }
   return baseStyle;
 }

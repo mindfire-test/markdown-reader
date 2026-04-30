@@ -2,99 +2,134 @@
 @plugin "@tailwindcss/typography";
 
 
-:root {
-  --bg-primary: #ffffff;
-  --text-primary: #1f2328;
-  --text-secondary: #656d76;
-  --sidebar-bg: #f6f8fa;
-  --border-color: #e5e7eb;
-  --link-color: #0969da;
-  --code-bg: #f6f8fa;
+:root,
+[data-theme="github-light"] {
+  --color-bg:          #ffffff;
+  --color-surface:     #f6f8fa;  
+  --color-border:      #d1d9e0;
+  --color-text:        #1f2328;
+  --color-text-muted:  #656d76;
+  --color-accent:      #0969da;   
+  --color-accent-bg:   #dbeafe;   
+  --color-error:       #b91c1c;
+  --color-error-bg:    #fee2e2;
+  --color-error-border:#dc2626;
+  --color-toast-bg:    #1d4ed8;
+  --reading-width:     768px;
+  --font-size-content: 16px;
+}
+ 
+[data-theme="github-dark"] {
+  --color-bg:          #0d1117;
+  --color-surface:     #161b22;
+  --color-border:      #30363d;
+  --color-text:        #e6edf3;
+  --color-text-muted:  #8d96a0;
+  --color-accent:      #58a6ff;
+  --color-accent-bg:   #1d3557;
+  --color-error:       #fca5a5;
+  --color-error-bg:    #450a0a;
+  --color-error-border:#dc2626;
+  --color-toast-bg:    #1e3a8a;
+}
+ 
+[data-theme="dracula"] {
+  --color-bg:          #282a36;
+  --color-surface:     #21222c;
+  --color-border:      #44475a;
+  --color-text:        #f8f8f2;
+  --color-text-muted:  #6272a4;
+  --color-accent:      #bd93f9;
+  --color-accent-bg:   #44475a;
+  --color-error:       #ff5555;
+  --color-error-bg:    #3a1212;
+  --color-error-border:#ff5555;
+  --color-toast-bg:    #6272a4;
+}
+ 
+[data-theme="nord"] {
+  --color-bg:          #2e3440;
+  --color-surface:     #3b4252;
+  --color-border:      #4c566a;
+  --color-text:        #f8f8f2;
+  --color-text-muted:  #d8dee9;
+  --color-accent:      #88c0d0;
+  --color-accent-bg:   #4c566a;
+  --color-error:       #bf616a;
+  --color-error-bg:    #3b1c1c;
+  --color-error-border:#bf616a;
+  --color-toast-bg:    #5e81ac;
+}
+ 
+[data-theme="minimal"] {
+  --color-bg:          #ffffff;
+  --color-surface:     #f9f9f9;
+  --color-border:      #dddddd;
+  --color-text:        #000000;
+  --color-text-muted:  #555555;
+  --color-accent:      #000000;
+  --color-accent-bg:   #f0f0f0;
+  --color-error:       #b91c1c;
+  --color-error-bg:    #fee2e2;
+  --color-error-border:#dc2626;
+  --color-toast-bg:    #000000;
+}
+ 
+[data-theme="notion"] {
+  --color-bg:          #ffffff;
+  --color-surface:     #fbfaf8;
+  --color-border:      #e9e8e3;
+  --color-text:        #37352f;
+  --color-text-muted:  #9b9a97;
+  --color-accent:      #0f7b6c;
+  --color-accent-bg:   #d3f5ef;
+  --color-error:       #b91c1c;
+  --color-error-bg:    #fee2e2;
+  --color-error-border:#dc2626;
+  --color-toast-bg:    #0f7b6c;
 }
 
 
-.app-bg {
-  background: var(--bg-primary);
-  color: var(--text-primary);
-}
-
-.sidebar-bg {
-  background: var(--sidebar-bg);
-}
-
-.border-theme {
-  border-color: var(--border-color);
-}
-
-.text-secondary {
-  color: var(--text-secondary);
-}
-
-.link-theme {
-  color: var(--link-color);
-}
-
-.code-bg {
-  background: var(--code-bg);
-}
-
-.error-bg {
-  background: #fee2e2;
-}
-
-.error-text {
-  color: #b91c1c;
-}
-
-.error-border {
-  border-color: #dc2626;
-}
-
-.prose {
-  color: var(--text-primary);
-}
-
-.prose h1,
-.prose h2,
-.prose h3 {
-  color: var(--text-primary);
-}
-
-.prose a {
-  color: var(--link-color);
-}
-
-
-.prose code {
-  background: var(--code-bg);
-  padding: 0.1em 0.35em;
-  border-radius: 4px;
-}
-
-
-.prose pre code {
-  background: none;
-  padding: 0;
-}
-
-.toc-active {
-  border-left-color: var(--text-primary);
-  color: var(--text-primary);
-  background: rgba(0, 0, 0, 0.05);
-  font-weight: 500;
-}
-
-.toc-inactive {
-  border-color: transparent;
-  color: var(--text-secondary);
-}
-
-.toc-inactive:hover {
-  color: var(--text-primary);
-  background: rgba(0, 0, 0, 0.05);
+@theme inline {
+  --color-bg:           var(--color-bg);
+  --color-surface:      var(--color-surface);
+  --color-border-theme: var(--color-border);
+  --color-text-base:    var(--color-text);
+  --color-text-muted:   var(--color-text-muted);
+  --color-accent:       var(--color-accent);
+  --color-accent-bg:    var(--color-accent-bg);
+  --color-error:        var(--color-error);
+  --color-error-bg:     var(--color-error-bg);
+  --color-error-border: var(--color-error-border);
+  --color-toast-bg:     var(--color-toast-bg);
 }
 
 
 body {
   @apply font-sans antialiased;
+  background-color: var(--color-bg);
+  color: var(--color-text)
+}
+
+.content-container {
+  @apply mx-auto py-12 px-6 ;
+  max-width: var(--reading-width);
+  font-size: var(--font-size-content);
+}
+.prose{
+  color: var(--color-text)
+}
+.toc-item {
+  @apply block w-full text-left py-1 text-sm transition-colors border-l-2 border-transparent;
+  color: var(--color-text-muted);
+}
+.toc-item:hover {
+  color: var(--color-text);
+  background-color: rgba(0, 0, 0, 0.06); 
+}
+.toc-item[aria-current="true"] {
+  border-left-color: var(--color-accent);
+  color: var(--color-text);
+  background: var(--color-accent-bg);
+  font-weight: 500;
 }

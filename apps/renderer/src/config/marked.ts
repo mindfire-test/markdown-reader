@@ -2,7 +2,7 @@ import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 import { shikiHighlighter } from '../renderer/shiki';
 import { THEMES } from '@package/shared-constants';
-import { heading } from '../utils/generate-id';
+import { heading } from '../utils/helpers/heading-helper';
 
 let instance: Marked | null = null;
 

@@ -1,8 +1,9 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import DOMpurify from 'dompurify';
 import { renderMarkdown } from '../renderer/markdown';
 import { extractTOC } from '../renderer/toc';
 import { TOCType } from '../types/component-types';
+import { RecentFile } from '@package/shared-types';
 
 export function useFile() {
   const [html, setHtml] = useState<string>('');
@@ -10,6 +11,14 @@ export function useFile() {
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [toc, setToc] = useState<TOCType[]>([]);
+  const [recentFiles, setRecentFiles] = useState<RecentFile[]>([]);
+
+  useEffect(() => {
+    window.api
+      .getRecentFiles()
+      .then(setRecentFiles)
+      .catch(() => {});
+  }, []);
 
   const loadFile = useCallback(async (path: string) => {
     setIsLoading(true);
@@ -21,6 +30,9 @@ export function useFile() {
       const safeHtml = DOMpurify.sanitize(renderHtml);
       setHtml(safeHtml);
       setToc(extractTOC(safeHtml));
+      await window.api.addRecentFile(path);
+      const updated = await window.api.getRecentFiles();
+      setRecentFiles(updated);
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);
@@ -40,5 +52,5 @@ export function useFile() {
     if (!filePath) return;
     await loadFile(filePath);
   }, [filePath, loadFile]);
-  return { html, filePath, openFile, error, isLoading, toc, reloadFile };
+  return { html, filePath, openFile, error, isLoading, toc, reloadFile, recentFiles, loadFile };
 }

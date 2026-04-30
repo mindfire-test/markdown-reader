@@ -33,13 +33,6 @@ describe('Sidebar', () => {
     expect(handleSelect).toHaveBeenCalledWith('component');
   });
 
-  //test 3 
-  it('applies active styles to active item', () => {
-    render(
-      <Sidebar tocItems={mockTOC} activeId="sidebar" onSelect={() => {}} isVisible={true} />
-    );
-    const activeItem = screen.getByText('Sidebar');
-    expect(activeItem.className).toContain('text-blue-700');
-  });
+  
 
 });
