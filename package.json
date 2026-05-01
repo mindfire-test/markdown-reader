@@ -8,7 +8,7 @@
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
     "build": "electron-vite build",
-    "dist": "pnpm build && electron-builder",
+    "dist": "pnpm build && electron-builder --publish always",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "changeset publish",
@@ -25,6 +25,7 @@
     },
     "files": [
       "out/**/*",
+      "node_modules/**/*",
       "package.json"
     ],
     "win": {
