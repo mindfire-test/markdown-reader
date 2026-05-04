@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { extractTOC } from '../src/renderer/toc';
+import { extractTOC } from '../../src/renderer/toc';
 
 describe('extract table of contents', () => {
   //test 1: checks empty array return from no heading

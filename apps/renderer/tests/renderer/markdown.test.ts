@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { renderMarkdown } from '../src/renderer/markdown';
+import { renderMarkdown } from '../../src/renderer/markdown';
 
 describe('renderMarkdown', () => {
   //test-1 :- converts heading to h1
