@@ -1,6 +1,16 @@
-import { describe, it, expect } from 'vitest';
+import { vi, describe, it, expect } from 'vitest';
 import { renderMermaid } from '../../src/renderer/mermaid';
 
+vi.mock('mermaid', () => ({
+  default: {
+    initialize: vi.fn(),
+    parse: vi.fn().mockImplementation((code) => {
+      if (code.includes('invalid')) throw new Error('Syntax Error');
+      return Promise.resolve();
+    }),
+    render: vi.fn().mockResolvedValue({ svg: '<svg>Mocked Diagram</svg>' }),
+  },
+}));
 describe('mermaid test', () => {
   it('renders a flowchart and returns SVG markup', async () => {
     const result = await renderMermaid('graph LR\n A --> B');

@@ -108,28 +108,109 @@
 body {
   @apply font-sans antialiased;
   background-color: var(--color-bg);
-  color: var(--color-text)
+  color: var(--color-text);
 }
 
 .content-container {
-  @apply mx-auto py-12 px-6 ;
+  @apply mx-auto px-6 py-12;
   max-width: var(--reading-width);
   font-size: var(--font-size-content);
 }
 .prose{
   color: var(--color-text)
 }
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6,
+.prose p,
+.prose li,
+.prose td,
+.prose th,
+.prose strong,
+.prose em {
+  color: var(--color-text);
+}
+
+.prose a {
+  color: var(--color-accent);
+}
+
+.prose hr,
+.prose table,
+.prose th,
+.prose td {
+  border-color: var(--color-border);
+}
+
+.prose blockquote {
+  color: var(--color-text-muted);
+  border-left-color: var(--color-accent);
+}
+
+.prose code {
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 0.875em;
+}
+
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+
+.prose pre {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  overflow-x: auto;
+}
+
+.prose pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
 .toc-item {
-  @apply block w-full text-left py-1 text-sm transition-colors border-l-2 border-transparent;
+  @apply block w-full border-l-2 border-transparent py-1 text-left text-sm transition-colors;
   color: var(--color-text-muted);
 }
 .toc-item:hover {
   color: var(--color-text);
-  background-color: rgba(0, 0, 0, 0.06); 
+  background-color: rgba(0, 0, 0, 0.06);
 }
 .toc-item[aria-current="true"] {
-  border-left-color: var(--color-accent);
   color: var(--color-text);
-  background: var(--color-accent-bg);
+  border-left-color: var(--color-accent);
+  background-color: var(--color-accent-bg);
   font-weight: 500;
+}
+
+.mermaid-diagram {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+.mermaid-error,
+.katex-error {
+  color: var(--color-error);
+  background-color: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
 }
