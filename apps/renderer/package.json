@@ -19,8 +19,10 @@
     "@package/shared-constants": "workspace:*",
     "@package/shared-types": "workspace:*",
     "dompurify": "^3.4.0",
+    "katex": "^0.16.45",
     "marked": "^18.0.0",
     "marked-highlight": "^2.2.4",
+    "mermaid": "^11.14.0",
     "shiki": "^4.0.2"
   },
   "devDependencies": {

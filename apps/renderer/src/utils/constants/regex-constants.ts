@@ -18,3 +18,15 @@ export const createSearchRegex = (query: string): RegExp => {
   const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return new RegExp(`(${escaped})(?![^<]*>)`, 'gi');
 };
+
+export const BLOCK_MERMAID_REGEX =
+  /<pre[^>]*>\s*<code[^>]*class="[^"]*language-mermaid[^"]*"[^>]*>([\s\S]*?)<\/code>\s*<\/pre>/gi;
+
+export const BLOCK_MATH_REGEX = /\$\$([\s\S]+?)\$\$/g;
+
+export const INLINE_MATH_REGEX = /(?<!\\)\$([^$\n]+?)\$/g;
+
+export const CALLOUT_REGEX = {
+  CALLOUT_TYPE: /\[!(\w+)\]/i,
+  BLOCKQUOTE: /<blockquote>([\s\S]*?)<\/blockquote>/gi,
+};

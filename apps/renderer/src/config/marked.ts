@@ -2,7 +2,8 @@ import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 import { shikiHighlighter } from '../renderer/shiki';
 import { THEMES } from '@package/shared-constants';
-import { heading } from '../utils/helpers/heading-helper';
+import { escapeHtml, heading } from '../utils/helpers/heading-helper';
+import { MARKDOWN_LANGUAGES } from '../utils/constants/markdown-constants';
 
 let instance: Marked | null = null;
 
@@ -12,9 +13,9 @@ export function getMarkdown(): Marked {
 
   // configure marked with GFM options
   instance.use({
-    renderer: { heading },
     gfm: true,
     breaks: false,
+    renderer: { heading },
   });
 
   //configure marked to use Shikhi for code blocks
@@ -22,9 +23,12 @@ export function getMarkdown(): Marked {
     markedHighlight({
       async: true,
       async highlight(code: string, lang: string): Promise<string> {
+        const language = lang || MARKDOWN_LANGUAGES.TEXT;
+        if (language === MARKDOWN_LANGUAGES.MERMAID) {
+          return escapeHtml(code);
+        }
         const highlighter = await shikiHighlighter();
         const theme = THEMES.GITHUB_DARK;
-        const language = lang || 'text';
         try {
           return highlighter.codeToHtml(code, {
             lang: language,
@@ -32,13 +36,13 @@ export function getMarkdown(): Marked {
             transformers: [
               {
                 pre(node) {
-                  node.properties.style = '';
+                  return node.children[0] as any;
                 },
               },
             ],
           });
         } catch {
-          return highlighter.codeToHtml(code, { lang: 'text', theme });
+          return escapeHtml(code);
         }
       },
     })

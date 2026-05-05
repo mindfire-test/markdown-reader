@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { shikiHighlighter } from '../src/renderer/shiki';
+import { shikiHighlighter } from '../../src/renderer/shiki';
 
 vi.mock('shiki/core', () => ({
   createHighlighterCore: vi.fn().mockResolvedValue({
