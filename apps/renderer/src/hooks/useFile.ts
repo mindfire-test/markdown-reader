@@ -33,6 +33,11 @@ export function useFile() {
       await window.api.addRecentFile(path);
       const updated = await window.api.getRecentFiles();
       setRecentFiles(updated);
+      return {
+        html: safeHtml,
+        toc: toc,
+        filePath: path,
+      };
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);

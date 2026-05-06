@@ -1,3 +1,4 @@
+import { FileType } from './file-types';
 import { RecentFile } from './recentfile-type';
 import { Settings } from './settings-type';
 
@@ -8,7 +9,7 @@ export type MarkdownReaderAPI = {
   unWatchFile(path: string): Promise<void>;
   openFileDialog(): Promise<string | null>;
   openFolderDialog(): Promise<string | null>;
-  readFolder(path: string): Promise<string | null>;
+  readFolder(path: string): Promise<FileType | null>;
   getRecentFiles(): Promise<RecentFile[]>;
   addRecentFile(path: string): Promise<void>;
   clearRecentFiles(): Promise<void>;

@@ -30,3 +30,5 @@ export const CALLOUT_REGEX = {
   CALLOUT_TYPE: /\[!(\w+)\]/i,
   BLOCKQUOTE: /<blockquote>([\s\S]*?)<\/blockquote>/gi,
 };
+
+export const FILE_PATH = /[\\/\\]/;

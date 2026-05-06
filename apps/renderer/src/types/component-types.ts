@@ -1,5 +1,6 @@
 import { APPTHEMES } from '../utils/constants/theme-constants';
 import { RecentFile } from '@package/shared-types/dist/src/recentfile-type';
+import { FileType } from '@package/shared-types';
 export interface ErrorProps {
   message: string;
   onRetry: () => void;
@@ -96,4 +97,53 @@ export interface StatusBarProps {
   filePath: string;
   theme: string;
   fontSize: number;
+}
+
+export interface TabBarProps {
+  tabs: Tab[];
+  activeTabId: string | null;
+  onSwitch: (id: string) => void;
+  onClose: (id: string) => void;
+}
+
+export interface Tab {
+  id: string;
+  filePath: string;
+  fileName: string;
+  html: string;
+  scrollTop: number;
+  fontSize: number;
+}
+
+export interface TabState {
+  tabs: Tab[];
+  activeTabId: string | null;
+}
+
+export type TabAction =
+  | { type: 'OPEN_TAB'; payload: { filePath: string; html?: string } }
+  | { type: 'CLOSE_TAB'; payload: { tabId: string } }
+  | { type: 'SWITCH_TAB'; payload: { tabId: string } }
+  | {
+      type: 'UPDATE_TAB_STATE';
+      payload: {
+        tabId: string;
+        html?: string;
+        scrollTop?: number;
+        fontSize?: number;
+      };
+    };
+
+export interface FileBrowserProps {
+  tree: FileType | null;
+  activeFilePath: string;
+  onOpenFile: (path: string) => void;
+  isVisible?: boolean;
+}
+
+export interface FileTreeProps {
+  node: FileType;
+  depth: number;
+  activeFilePath: string;
+  onOpenFile: (path: string) => void;
 }

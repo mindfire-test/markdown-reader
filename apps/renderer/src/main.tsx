@@ -6,11 +6,14 @@ import App from './App'
 import "./index.css";
 import { ThemeProvider } from './context/ThemeProvider'
 import 'katex/dist/katex.min.css';
+import { TabProvider } from './context/TabProvider';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider>
-      <App />
+      <TabProvider>
+        <App />
+      </TabProvider>
     </ThemeProvider>
   </StrictMode>
 )

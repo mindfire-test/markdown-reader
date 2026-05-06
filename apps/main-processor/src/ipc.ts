@@ -1,6 +1,7 @@
 import { ipcMain, dialog } from 'electron';
 import { readFile, unWatchFile, watchFile } from './file';
 import { getRecentFiles, addRecentFile } from './recent';
+import { getFolder } from './folder';
 import { validateMarkdownFile, validatePath, validateSender } from './utils/ipc-validation';
 import { IPC_CONSTANTS } from '@package/shared-constants';
 
@@ -86,5 +87,33 @@ export function registerIPCHandlers(): void {
       throw new Error('Invalid file path');
     }
     await addRecentFile(filePath);
+  });
+
+  ipcMain.handle(IPC_CONSTANTS.OPEN_FOLDER_DIALOG, async (event) => {
+    if (!validateSender(event)) {
+      throw new Error('Untrusted sender');
+    }
+
+    const result = await dialog.showOpenDialog({
+      title: 'Open Folder',
+      properties: ['openDirectory'],
+    });
+
+    if (result.canceled || result.filePaths.length === 0) {
+      return null;
+    }
+
+    return result.filePaths[0] ?? null;
+  });
+
+  ipcMain.handle(IPC_CONSTANTS.READ_FOLDER, async (event, folderPath: string) => {
+    if (!validateSender(event)) {
+      throw new Error('Untrusted sender');
+    }
+
+    if (!validatePath(folderPath)) {
+      throw new Error('Invalid folder path');
+    }
+    return await getFolder(folderPath);
   });
 }

@@ -8,7 +8,7 @@
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
     "build": "electron-vite build",
-    "dist": "pnpm build && electron-builder --publish always",
+    "dist": "pnpm build && electron-builder",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "changeset publish",
