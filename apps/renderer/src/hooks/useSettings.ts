@@ -6,7 +6,7 @@ export function useSettings() {
   const [readingWidth, setReadingWidth] = useState<ReadingWidth>('default');
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--content-font-size', `${fontSize}px`);
+    document.documentElement.style.setProperty('--font-size-content', `${fontSize}px`);
   }, [fontSize]);
 
   useEffect(() => {
