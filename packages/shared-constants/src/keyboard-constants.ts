@@ -1,0 +1,16 @@
+export const SHORTCUTS = {
+  OPEN_FILE: 'CmdOrCtrl+O',
+  OPEN_FOLDER: 'CmdOrCtrl+Shift+O',
+  CLOSE_TAB: 'CmdOrCtrl+W',
+  CYCLE_THEME: 'CmdOrCtrl+T',
+  SEARCH_DOCUMENT: 'CmdOrCtrl+F',
+  SEARCH_FOLDER: 'CmdOrCtrl+Shift+F',
+  TOGGLE_TOC: '[',
+  TOGGLE_BROWSER: '\\',
+  FOCUS_MODE: 'CmdOrCtrl+Shift+F',
+  ZOOM_IN: 'CmdOrCtrl+=',
+  ZOOM_OUT: 'CmdOrCtrl+-',
+  RESET_ZOOM: 'CmdOrCtrl+0',
+  NEXT_TAB: 'Ctrl+Tab',
+  PREVIOUS_TAB: 'Ctrl+Shift+Tab',
+} as const;

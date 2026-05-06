@@ -1,0 +1,43 @@
+export const MENU_LABELS = {
+  FILE: 'File',
+  VIEW: 'View',
+  NAVIGATE: 'Navigate',
+  OPEN_FILE: 'Open File',
+  OPEN_FOLDER: 'Open Folder',
+  CLOSE_TAB: 'Close Tab',
+  EXPORT: 'Export',
+  EXPORT_HTML: 'Export as HTML',
+  EXPORT_PDF: 'Export as PDF',
+  TABLE_OF_CONTENTS: 'Table of Contents',
+  FILE_BROWSER: 'File Browser',
+  FOCUS_MODE: 'Focuse Mode',
+  CYCLE_THEME: 'Cycle Theme',
+  ZOOM_IN: 'Zoom In',
+  ZOOM_OUT: 'Zoom Out',
+  RESET_ZOOM: 'Reset Zoom',
+  NEXT_TAB: 'Next Tab',
+  PREVIOUS_TAB: 'Previous Tab',
+  SEARCH_DOCUMENT: 'Search In Document',
+  SEARCH_FOLDER: 'Search in Folder',
+} as const;
+
+export const MENU_EVENTS = {
+  OPEN_FILE: 'menu:open-file',
+  OPEN_FOLDER: 'menu:open-folder',
+  CLOSE_TAB: 'menu:close-tab',
+  TOGGLE_TOC: 'menu:toggle-toc',
+  TOGGLE_BROWSER: 'menu:toggle-browser',
+  FOCUS_MODE: 'menu:focus-mode',
+  CYCLE_THEME: 'menu:cycle-theme',
+  ZOOM_IN: 'menu:zoom-in',
+  ZOOM_OUT: 'menu:zoom-out',
+  ZOOM_RESET: 'menu:zoom-reset',
+  NEXT_TAB: 'menu:next-tab',
+  PREVIOUS_TAB: 'menu:previous-tab',
+  SEARCH_DOCUMENT: 'menu:search-document',
+  SEARCH_FOLDER: 'menu:search-folder',
+  EXPORT_HTML: 'menu:export-html',
+  EXPORT_PDF: 'menu:export-pdf',
+} as const;
+
+export const MENU_EVENT_LIST = Object.values(MENU_EVENTS);
