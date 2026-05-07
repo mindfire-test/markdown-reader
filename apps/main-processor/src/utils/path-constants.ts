@@ -6,3 +6,5 @@ export const PATHS = {
 } as const;
 
 export const MAX_RECENT = 20;
+
+export const MARKDOWN_FILE_PATTERN = /\.(md|markdown)$/i;
