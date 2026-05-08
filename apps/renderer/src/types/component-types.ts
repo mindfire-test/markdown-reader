@@ -1,3 +1,4 @@
+import React from 'react';
 import { APPTHEMES } from '../utils/constants/theme-constants';
 import { RecentFile } from '@package/shared-types/dist/src/recentfile-type';
 import { FileType } from '@package/shared-types';
@@ -147,3 +148,7 @@ export interface FileTreeProps {
   activeFilePath: string;
   onOpenFile: (path: string) => void;
 }
+
+export type IconProps = React.SVGProps<SVGSVGElement> & {
+  size?: number;
+};
