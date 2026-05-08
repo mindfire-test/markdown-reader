@@ -1,8 +1,8 @@
-import katex from 'katex';
 import { BLOCK_MATH_REGEX, INLINE_MATH_REGEX } from '../utils/constants/regex-constants';
 
 //turns math text into a small inline formula
-export function renderInlineMath(latex: string): string {
+export async function renderInlineMath(latex: string): Promise<string> {
+  const { default: katex } = await import('katex');
   try {
     return katex.renderToString(latex, { displayMode: false, throwOnError: false });
   } catch {
@@ -11,7 +11,8 @@ export function renderInlineMath(latex: string): string {
 }
 
 // turns math into a centered block
-export function renderBlockMath(latex: string): string {
+export async function renderBlockMath(latex: string): Promise<string> {
+  const { default: katex } = await import('katex');
   try {
     return katex.renderToString(latex, { displayMode: true, throwOnError: false });
   } catch {
@@ -20,9 +21,20 @@ export function renderBlockMath(latex: string): string {
 }
 
 //swaps all $ with actual math symbol
-export function processAllMath(html: string): string {
+export async function processAllMath(html: string): Promise<string> {
   if (!html.includes('$')) return html;
-  let out = html.replace(BLOCK_MATH_REGEX, (_, tex: string) => renderBlockMath(tex.trim()));
-  out = out.replace(INLINE_MATH_REGEX, (_, tex: string) => renderInlineMath(tex.trim()));
-  return out;
+  let result = html;
+  for (const match of result.matchAll(BLOCK_MATH_REGEX)) {
+    const [raw, content] = match;
+    if (!content) continue;
+    const rendered = await renderBlockMath(content.trim());
+    result = result.replace(raw, rendered);
+  }
+  for (const match of result.matchAll(INLINE_MATH_REGEX)) {
+    const [raw, content] = match;
+    if (!content) continue;
+    const rendered = await renderInlineMath(content.trim());
+    result = result.replace(raw, rendered);
+  }
+  return result;
 }

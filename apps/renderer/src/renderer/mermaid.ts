@@ -1,5 +1,3 @@
-import mermaid from 'mermaid';
-import { initMermaid } from '../config/mermaid';
 import { decodeHtml } from '../utils/helpers/heading-helper';
 import { escapeHtml } from '../utils/helpers/heading-helper';
 import { BLOCK_MERMAID_REGEX } from '../utils/constants/regex-constants';
@@ -10,6 +8,8 @@ let diagramCounter = 0;
 export async function renderMermaid(code: string): Promise<string> {
   const cleanCode = code.trim();
   if (!cleanCode) return '';
+  const { default: mermaid } = await import('mermaid');
+  const { initMermaid } = await import('../config/mermaid');
   initMermaid();
   const diagramId = `mermaid-diagram-${++diagramCounter}`;
   try {
