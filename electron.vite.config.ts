@@ -7,6 +7,7 @@ export default defineConfig({
   main: {
     build: {
       externalizeDeps: true,
+      sourcemap: false,
       lib: {
         entry: resolve(__dirname, 'apps/main-processor/src/index.ts'),
       },
@@ -15,6 +16,7 @@ export default defineConfig({
   preload: {
     build: {
       externalizeDeps: true,
+      sourcemap: false,
       lib: {
         entry: resolve(__dirname, 'apps/preload/src/index.ts'),
       },
@@ -27,6 +29,7 @@ export default defineConfig({
       rollupOptions: {
         input: resolve(__dirname, 'apps/renderer/index.html'),
       },
+      sourcemap: false,
     },
   },
 });

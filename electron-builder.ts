@@ -5,8 +5,24 @@ const config: Configuration = {
   productName: 'Markdown Reader',
   directories: {
     output: 'release',
+    buildResources: 'assets',
   },
-  files: ['out/**/*', 'package.json', 'assets/**/*'],
+  files: [
+    'out/**/*',
+    'package.json',
+    '!**/coverage/**',
+    '!**/tests/**',
+    '!**/*.test.*',
+    '!**/*.spec.*',
+    '!**/*.map',
+    '!**/node_modules/.vite/**',
+  ],
+  extraResources: [
+    {
+      from: 'assets',
+      to: 'assets',
+    },
+  ],
   asar: true,
   fileAssociations: [
     {
@@ -26,15 +42,17 @@ const config: Configuration = {
   },
   win: {
     icon: 'assets/icon.ico',
-    target: [{ target: 'nsis', arch: ['x64', 'arm64'] }],
+    target: [{ target: 'nsis', arch: ['x64'] }],
   },
   nsis: {
     oneClick: false,
     allowToChangeInstallationDirectory: true,
     createDesktopShortcut: true,
+    createStartMenuShortcut: true,
+    shortcutName: 'Markdown Reader',
   },
   linux: {
-    icon: 'assets/',
+    icon: 'assets/icons',
     target: ['AppImage', 'deb'],
     category: 'Utility',
     mimeTypes: ['text/markdown'],
