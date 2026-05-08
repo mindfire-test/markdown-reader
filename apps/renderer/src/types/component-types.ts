@@ -152,3 +152,33 @@ export interface FileTreeProps {
 export type IconProps = React.SVGProps<SVGSVGElement> & {
   size?: number;
 };
+
+export interface UseMenuEventsProps {
+  onOpenFile: () => void;
+  onOpenFolder: () => void;
+  onSearchDocument: () => void;
+  onToggleToc: () => void;
+  onToggleBrowser: () => void;
+  onFocusMode: () => void;
+  onCycleTheme: () => void;
+  onZoomIn: () => void;
+  onZoomOut: () => void;
+  onZoomReset: () => void;
+  onNextTab: () => void;
+  onPreviousTab: () => void;
+  onCloseTab: () => void;
+}
+
+export interface UseShortcutsProps {
+  onOpenFile: () => void;
+  onOpenFolder: () => void;
+  onToggleFocusMode: () => void;
+  onToggleTheme: () => void;
+  onOpenSearch: () => void;
+  onCloseSearch: () => void;
+  onZoomIn: () => void;
+  onZoomOut: () => void;
+  onZoomReset: () => void;
+  onToggleSidebar: () => void;
+  onToggleFileBrowser: () => void;
+}
