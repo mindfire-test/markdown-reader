@@ -26,20 +26,6 @@ export function buildMenuTemplate(): MenuItemConstructorOptions[] {
           click: send(MENU_EVENTS.CLOSE_TAB),
         },
         { type: 'separator' },
-        {
-          label: MENU_LABELS.EXPORT,
-          submenu: [
-            {
-              label: MENU_LABELS.EXPORT_HTML,
-              click: send(MENU_EVENTS.EXPORT_HTML),
-            },
-            {
-              label: MENU_LABELS.EXPORT_PDF,
-              click: send(MENU_EVENTS.EXPORT_PDF),
-            },
-          ],
-        },
-        { type: 'separator' },
         { role: 'quit' },
       ],
     },
@@ -105,11 +91,6 @@ export function buildMenuTemplate(): MenuItemConstructorOptions[] {
           label: MENU_LABELS.SEARCH_DOCUMENT,
           accelerator: SHORTCUTS.SEARCH_DOCUMENT,
           click: send(MENU_EVENTS.SEARCH_DOCUMENT),
-        },
-        {
-          label: MENU_LABELS.SEARCH_FOLDER,
-          accelerator: SHORTCUTS.SEARCH_FOLDER,
-          click: send(MENU_EVENTS.SEARCH_FOLDER),
         },
       ],
     },
