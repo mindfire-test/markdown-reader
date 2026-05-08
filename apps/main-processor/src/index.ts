@@ -1,6 +1,7 @@
+const STARTUP_START = Date.now();
+import { WINDOW_CONSTANTS, STARTUP_TIME } from './utils/window-constants';
 import { app, BrowserWindow } from 'electron';
 import { registerIPCHandlers } from './ipc';
-import { WINDOW_CONSTANTS } from './utils/window-constants';
 import { PATHS } from './utils/path-constants';
 import { registerMenu } from './register-menu';
 import { parseFilePathFromArgv } from './cli';
@@ -26,6 +27,7 @@ function createWindow(): void {
     minWidth: WINDOW_CONSTANTS.MIN_WIDTH,
     minHeight: WINDOW_CONSTANTS.MIN_HEIGHT,
     icon: PATHS.APP_ICON,
+    show: false,
     webPreferences: {
       preload: PATHS.PRELOAD,
       contextIsolation: true,
@@ -38,6 +40,18 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(PATHS.RENDERER_HTML);
   }
+  mainWindow.once('ready-to-show', () => {
+    mainWindow?.show();
+
+    const elapsed = Date.now() - STARTUP_START;
+    console.warn(`[PERF] Cold start: ${elapsed}ms`);
+
+    if (elapsed > STARTUP_TIME.COLD_START_LIMIT_MS) {
+      console.error(
+        `[PERF] WARNING: Cold start exceeded ${STARTUP_TIME.COLD_START_LIMIT_MS}ms target (${elapsed}ms)`
+      );
+    }
+  });
 
   mainWindow.webContents.once('did-finish-load', () => {
     const cliFilePath = parseFilePathFromArgv(process.argv);
