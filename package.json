@@ -1,6 +1,6 @@
 {
   "name": "markdown-reader",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "A markdown reader built with Electron",
   "main": "out/main/index.js",
   "scripts": {
@@ -11,44 +11,11 @@
     "dist": "pnpm build && electron-builder",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "changeset publish",
+    "changeset:auto": "node .github/create-auto-changeset.js",
     "lint": "pnpm -r run lint",
     "typecheck": "pnpm -r run typecheck",
     "test": "pnpm -r run test",
     "test:coverage": "pnpm -r run test:coverage"
-  },
-  "build": {
-    "appId": "com.markdown.reader",
-    "productName": "Markdown Reader",
-    "directories": {
-      "output": "release"
-    },
-    "files": [
-      "out/**/*",
-      "node_modules/**/*",
-      "package.json"
-    ],
-    "win": {
-      "target": "nsis"
-    },
-    "mac": {
-      "target": [
-        "dmg"
-      ],
-      "category": "public.app-category.productivity"
-    },
-    "linux": {
-      "target": [
-        "AppImage"
-      ],
-      "category": "Utility"
-    },
-    "publish": [
-      {
-        "provider": "github"
-      }
-    ],
-    "asar": true
   },
   "keywords": [],
   "author": "Mindfire-digital",

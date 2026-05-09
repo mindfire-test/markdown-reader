@@ -1,7 +1,5 @@
 import { getMarkdown } from '../config/marked';
 import { parseCallouts } from './callout';
-import { processAllMath } from './katex';
-import { processMermaid } from './mermaid';
 
 // converts markdown text into plain HTML string
 export async function renderMarkdown(markdownText: string): Promise<string> {
@@ -11,8 +9,14 @@ export async function renderMarkdown(markdownText: string): Promise<string> {
 
   const marked = getMarkdown();
   let result = await marked.parse(markdownText);
-  result = processAllMath(result);
-  result = await processMermaid(result);
+  if (result.includes('$')) {
+    const { processAllMath } = await import('./katex');
+    result = await processAllMath(result);
+  }
+  if (result.includes('language-mermaid')) {
+    const { processMermaid } = await import('./mermaid');
+    result = await processMermaid(result);
+  }
   result = parseCallouts(result);
 
   return result;

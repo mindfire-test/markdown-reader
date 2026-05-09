@@ -1,6 +1,6 @@
 {
   "name": "@package/shared-types",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Sub-package for Markdown Reader",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",

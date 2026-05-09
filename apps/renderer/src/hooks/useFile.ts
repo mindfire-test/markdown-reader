@@ -29,13 +29,14 @@ export function useFile() {
       const renderHtml = await renderMarkdown(rawMarkdown);
       const safeHtml = DOMpurify.sanitize(renderHtml);
       setHtml(safeHtml);
-      setToc(extractTOC(safeHtml));
+      const nextToc = extractTOC(safeHtml);
+      setToc(nextToc);
       await window.api.addRecentFile(path);
       const updated = await window.api.getRecentFiles();
       setRecentFiles(updated);
       return {
         html: safeHtml,
-        toc: toc,
+        toc: nextToc,
         filePath: path,
       };
     } catch (error: unknown) {

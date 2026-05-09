@@ -1,21 +1,36 @@
 import { StatusBarProps } from "../types/component-types";
 import { basename } from "../utils/helpers/path-helper";
+import { Icons } from "../utils/constants/icon-contants";
 
 export function StatusBar({ filePath, theme, fontSize }: StatusBarProps) {
   const zoomPercent = Math.round((fontSize / 16) * 100);
   const displayName = filePath ? basename(filePath) : '_';
 
   return (
-     <footer className="flex items-center justify-between h-7 px-4 bg-surface border-t border-border-theme text-[11px] font-medium text-text-muted shrink-0 select-none">
-      <div className="flex items-center gap-4 truncate">
-        <span className="truncate max-w-50 hover:text-text-base cursor-default" title={filePath}>
+    <footer className="flex h-8 shrink-0 items-center justify-between border-t border-border-theme bg-surface px-4 text-[11px] text-text-muted backdrop-blur">
+      <div className="flex min-w-0 items-center gap-2">
+        <div className="h-2 w-2 rounded-full bg-accent"/>
+        <span className="truncate  hover:text-text-base" title={filePath}>
           {displayName}
         </span>
       </div>
-      
+    
       <div className="flex items-center gap-4">
-        <span className="uppercase tracking-wider opacity-80">{theme}</span>
-        <span className="min-w-11.25 text-right">{zoomPercent}%</span>
+        <div className="flex items-center gap-1 rounded-md px-2 py-1">
+          {theme === 'github-dark' ||theme === 'dracula' ||theme === 'nord' ? (
+            <Icons.Moon size={13} />
+          ) : (
+            <Icons.Sun size={13} />
+          )}
+
+          <span className="capitalize">
+            {theme.replace('-', ' ')}
+          </span>
+        </div>
+        <div className="flex items-center gap-1 rounded-md px-2 py-1">
+          <Icons.ZoomIn size={13} />
+          <span>{zoomPercent}%</span>
+        </div>
       </div>
     </footer>
   );

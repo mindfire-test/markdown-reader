@@ -14,4 +14,5 @@ export const IPC_CONSTANTS = {
   FILE_CHANGED: 'file-changed',
   TOGGLE_MODE: 'dark-mode:toggle',
   SYSTEM_MODE: 'dark-mode:system',
+  OPEN_FILE_PATH: 'open-file-path',
 } as const;
