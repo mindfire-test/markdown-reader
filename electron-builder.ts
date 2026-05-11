@@ -29,14 +29,14 @@ const config: Configuration = {
       ext: 'md',
       name: 'Markdown File',
       description: 'Markdown document',
-      icon: 'assets/icons/512x512.png',
+      icon: 'assets/icon',
       rank: 'Owner',
     },
     {
       ext: 'markdown',
       name: 'Markdown File',
       description: 'Markdown document',
-      icon: 'assets/icons/512x512.png',
+      icon: 'assets/icon',
       rank: 'Owner',
     },
   ],
@@ -63,7 +63,7 @@ const config: Configuration = {
     target: ['AppImage', 'deb'],
     category: 'Utility',
     mimeTypes: ['text/markdown'],
-    maintainer: 'Mindfire Digital ashminita12@gmail.com',
+    maintainer: 'Mindfire Digital <ashminita12@gmail.com>',
   },
 };
 
