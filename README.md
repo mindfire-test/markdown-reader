@@ -79,8 +79,8 @@ markdown-reader is a dedicated native desktop Markdown reader:
 - Links
 - Footnotes
 - Inline HTML
-- KaTeX math
 - Mermaid diagrams
+- KaTeX math
 
 ---
 
