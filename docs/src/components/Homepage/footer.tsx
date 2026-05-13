@@ -1,29 +1,7 @@
 const Footer = () => (
-  <footer
-    style={{
-      position: 'relative',
-      width: '100%',
-      height: '64px',
-      zIndex: 50,
-    }}
-  >
-    <div
-      style={{
-        margin: '0 auto',
-        maxWidth: '1200px',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '1rem',
-        padding: '0 1rem',
-        color: 'var(--muted-foreground)',
-        fontSize: '0.875rem',
-      }}
-    >
-      <p style={{ margin: 0 }}>
-        © {new Date().getFullYear()} Mindfire FOSS
-      </p>
+  <footer className="relative w-full min-h-16 z-50 border-t border-border/50">
+    <div className="mx-auto max-w-6xl min-h-16 flex items-center justify-center px-5 py-4 text-muted-foreground text-sm text-center">
+      <p style={{ margin: 0 }}>© {new Date().getFullYear()} Markdown Reader · Mindfire FOSS</p>
     </div>
   </footer>
 );

@@ -1,21 +1,32 @@
 import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
 
 const sidebars: SidebarsConfig = {
-  docs: [
+  tutorialSidebar: [
     {
       type: 'category',
       label: 'Getting Started',
-      items: ['introduction', 'installation', 'features'],
+      items: ['introduction', 'installation'],
     },
     {
       type: 'category',
-      label: 'Using Markdown Reader',
-      items: ['keyboard-shortcuts'],
+      label: 'Product Guide',
+      items: [
+        'product/features',
+        'product/markdown-support',
+        'product/keyboard-shortcuts',
+        'product/export',
+        'product/privacy',
+      ],
     },
     {
       type: 'category',
-      label: 'Developers',
-      items: ['development', 'release-notes'],
+      label: 'Development',
+      items: ['development/setup', 'development/architecture', 'development/testing'],
+    },
+    {
+      type: 'category',
+      label: 'Contribution Guide',
+      items: ['contribution-guide/how-to-contribute', 'contribution-guide/code-of-conduct'],
     },
   ],
 };
