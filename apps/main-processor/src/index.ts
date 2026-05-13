@@ -1,8 +1,8 @@
 const STARTUP_START = Date.now();
-import { WINDOW_CONSTANTS, STARTUP_TIME } from './utils/window-constants';
+import { WINDOW_CONSTANTS, STARTUP_TIME } from './utils/constants/window-constants';
 import { app, BrowserWindow } from 'electron';
 import { registerIPCHandlers } from './ipc';
-import { PATHS } from './utils/path-constants';
+import { PATHS } from './utils/constants/path-constants';
 import { registerMenu } from './register-menu';
 import { parseFilePathFromArgv } from './cli';
 

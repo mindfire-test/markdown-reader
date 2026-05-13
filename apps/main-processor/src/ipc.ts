@@ -1,7 +1,11 @@
 import { ipcMain, dialog } from 'electron';
 import { readFile, unWatchFile, watchFile } from './file';
 import { getFolder } from './folder';
-import { validateMarkdownFile, validatePath, validateSender } from './utils/ipc-validation';
+import {
+  validateMarkdownFile,
+  validatePath,
+  validateSender,
+} from './utils/constants/ipc-validation';
 import { IPC_CONSTANTS } from '@package/shared-constants';
 import { getRecentFiles } from './recent/getRecentFile';
 import { addRecentFile } from './recent/addRecentFile';
