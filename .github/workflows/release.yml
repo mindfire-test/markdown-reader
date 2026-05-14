@@ -10,8 +10,65 @@ permissions:
   contents: write
   
 jobs:
+  version_and_tag:
+    name: Prepare Version Commit
+    runs-on: ubuntu-latest
+    outputs:
+      new_sha: ${{ steps.commit-version.outputs.sha }}
+      tag: ${{ steps.package-version.outputs.tag }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Create auto changeset
+        run: pnpm changeset:auto
+
+      - name: Version packages
+        run: pnpm version-packages
+
+      - name: Read package version
+        id: package-version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Commit version changes
+        id: commit-version
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config user.email "github-actions@github.com"
+            git config user.name "GitHub Actions"
+            git add package.json pnpm-lock.yaml CHANGELOG.md .changeset
+            git commit -m "chore(release): version packages [skip ci]" --no-verify
+            
+            # Fix: Inject the authenticated GITHUB_TOKEN directly into the remote push string
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/{{ github.repository }}.git HEAD:${{ github.ref_name }}
+            
+            # Record the fresh commit hash so the matrix job can check out the exact version
+            echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+          else
+            echo "sha=${{ github.sha }}" >> $GITHUB_OUTPUT
+          fi
   build:
     name: Build (${{ matrix.os }})
+    needs: version_and_tag
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -21,6 +78,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version_and_tag.outputs.new_sha }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
@@ -64,7 +123,7 @@ jobs:
 
   publish:
     name: Create Unified Release
-    needs: build
+    needs: [version_and_tag,build]
     runs-on: ubuntu-latest
     steps:
       - name: Download All Runner Artifacts
@@ -77,8 +136,8 @@ jobs:
       - name: Publish Consolidated GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: release-${{ github.run_number }}
-          name: Markdown Reader Release ${{ github.run_number }}
+          tag_name: ${{ needs.version_and_tag.outputs.tag }}
+          name: Markdown Reader Release ${{ needs.version_and_tag.outputs.tag }}
           draft: false
           prerelease: false
           generate_release_notes: true
