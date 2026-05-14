@@ -16,7 +16,9 @@ export function Sidebar({tocItems,activeId,onSelect,isVisible=true, onClose }: S
             Contents
         </h2>
         <button
+          type="button"
           onClick={onClose}
+          aria-label="Close table of contents"
           className="p-1 text-text-muted hover:text-text-base transition-colors"
         >
           <Icons.X size={18} />
@@ -29,7 +31,7 @@ export function Sidebar({tocItems,activeId,onSelect,isVisible=true, onClose }: S
 
           return (
             <li key={item.id}>
-              <button onClick={()=>onSelect(item.id)} className={getItemClasses(item,activeId)} aria-current={item.id===activeId?"true":undefined}>
+              <button type="button" onClick={()=>onSelect(item.id)} className={getItemClasses(item,activeId)} aria-current={item.id===activeId?"location":undefined}>
                 <span className="inline-flex items-center gap-1">
                   {expandable && (
                     <span
