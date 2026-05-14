@@ -60,11 +60,24 @@ jobs:
           if [[ -n "$(git status --porcelain)" ]]; then
             git add package.json pnpm-lock.yaml CHANGELOG.md
             git commit -m "chore(release): version packages [skip ci]" --no-verify
-            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@://github.com{{ github.repository }}.git HEAD:${{ github.ref_name }}
+            
+            # 1. Create the local Git tag
+            git tag ${{ steps.package-version.outputs.tag }}
+            
+            # 2. Push the branch commit (Fixed the broken URL syntax)
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com${{ github.repository }}.git HEAD:${{ github.ref_name }}
+            
+            # 3. Push the tag to GitHub
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com{{ github.repository }}.git ${{ steps.package-version.outputs.tag }}
+            
             echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
           else
+            # Safeguard: If no files changed, ensure the tag still exists on GitHub for the release step
+            git tag -f ${{ steps.package-version.outputs.tag }}
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com{{ github.repository }}.git ${{ steps.package-version.outputs.tag }} --force
             echo "sha=${{ github.sha }}" >> $GITHUB_OUTPUT
           fi
+
   build:
     name: Build (${{ matrix.os }})
     needs: version_and_tag
