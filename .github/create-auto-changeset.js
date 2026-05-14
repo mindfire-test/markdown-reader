@@ -6,9 +6,12 @@ import path from 'path';
 const CHANGESET_DIR = '.changeset';
 
 if (fs.existsSync(CHANGESET_DIR)) {
-  const existing = fs.readdirSync(CHANGESET_DIR).filter((f) => f.endsWith('.md'));
-  if (existing.length > 0) {
-    console.log('Changeset already exists, skipping generation');
+  const existingAutoChangesets = fs
+    .readdirSync(CHANGESET_DIR)
+    .filter((f) => f.startsWith('auto-') && f.endsWith('.md'));
+
+  if (existingAutoChangesets.length > 0) {
+    console.log('Automated changeset already exists, skipping generation');
     process.exit(0);
   }
 } else {
