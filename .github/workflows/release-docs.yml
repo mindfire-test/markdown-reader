@@ -31,7 +31,7 @@ jobs:
         run: pnpm install
 
       - name: Build core package
-        run: pnpm run build
+        run: pnpm -r run build
 
       - name: Build docs
         
