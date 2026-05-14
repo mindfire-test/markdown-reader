@@ -43,7 +43,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
 
       - name: Generate changeset from commit message
-        run: pnpm changeset:autogenerate
+        run: pnpm changeset:auto
 
       - name: Create Release version
         run: pnpm changeset:version
