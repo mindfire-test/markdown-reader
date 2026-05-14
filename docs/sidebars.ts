@@ -20,11 +20,6 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Development',
-      items: ['development/setup', 'development/architecture', 'development/testing'],
-    },
-    {
-      type: 'category',
       label: 'Contribution Guide',
       items: ['contribution-guide/how-to-contribute', 'contribution-guide/code-of-conduct'],
     },
