@@ -14,7 +14,7 @@ export const downloads = [
   {
     name: 'Linux',
     format: '.AppImage / .deb',
-    href: 'https://github.com/mindfire-test/markdown-reader/releases/latest/download/markdown-reader_1.0.0_amd64.deb',
+    href: 'https://github.com/mindfiredigital/markdown-reader/releases/latest/download/markdown-reader_1.0.0_amd64.deb',
     icon: '/img/downloads/linux.png',
   },
 ];

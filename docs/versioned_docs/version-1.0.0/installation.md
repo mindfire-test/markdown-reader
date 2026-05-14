@@ -7,7 +7,7 @@ sidebar_position: 2
 
 Download the latest version from GitHub Releases:
 
-[Open GitHub Releases](https://github.com/mindfire-test/markdown-reader/releases)
+[Open GitHub Releases](https://github.com/mindfiredigital/markdown-reader/releases)
 
 ## Windows
 

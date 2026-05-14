@@ -25,7 +25,7 @@ We are committed to fostering a welcoming and inclusive community. Before contri
 
 ## Finding Something to Work On
 
-1.  **Explore the Issues:** Head over to our [issue tracker](https://github.com/mindfire-test/markdown-reader/issues). This is the best place to find tasks.
+1.  **Explore the Issues:** Head over to our [issue tracker](https://github.com/mindfiredigital/markdown-reader/issues). This is the best place to find tasks.
 2.  **Good First Issues:** Look for issues tagged with `good first issue` or `help wanted`. These are specifically prepared for new contributors.
 3.  **Propose a New Feature:** If you have an idea for a new component or feature, please **open an issue first**. This allows us to discuss the feature and make sure it aligns with the project's goals before you start working on it.
 
@@ -37,10 +37,10 @@ We are committed to fostering a welcoming and inclusive community. Before contri
 
 First, get the project running on your local machine.
 
-- **Fork the repository:** Click the "Fork" button at the top-right of the [Markdown Reader repository](https://github.com/mindfire-test/markdown-reader).
+- **Fork the repository:** Click the "Fork" button at the top-right of the [Markdown Reader repository](https://github.com/mindfiredigital/markdown-reader).
 - **Clone your forked repository:**
   ```bash
-  git clone https://github.com/mindfire-test/markdown-reader.git
+  git clone https://github.com/mindfiredigital/markdown-reader.git
   cd markdown-reader
   ```
 - **Install dependencies:** This project uses `pnpm` as its package manager.
