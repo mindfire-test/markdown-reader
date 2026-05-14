@@ -12,6 +12,7 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "changeset:auto": "node .github/create-auto-changeset.js",
+    "changeset:version": "node .github/changeset-version.js",
     "lint": "pnpm -r run lint",
     "typecheck": "pnpm -r run typecheck",
     "test": "pnpm -r run test",
