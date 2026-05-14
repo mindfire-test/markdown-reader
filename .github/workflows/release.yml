@@ -7,15 +7,11 @@ on:
     
 permissions:
   contents: write
-  packages: write
-  pull-requests: write
-  actions: write
   
 jobs:
-  release:
-    name: Build & Publish (${{ matrix.os }})
+  build:
+    name: Build (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
- 
     strategy:
       fail-fast: false
       matrix:
@@ -35,6 +31,12 @@ jobs:
         with:
           node-version: 22
           cache: "pnpm"
+
+      - name: Install Linux build dependencies
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rpm fakeroot dpkg libarchive-tools
  
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -42,8 +44,46 @@ jobs:
       - name: Build packages
         run: pnpm -r run build
  
-      - name: Build and publish
-        run: pnpm dist:publish
+      - name: Build electron app
+        run: pnpm dist
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
- 
+
+      - name: Upload Runner Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: electron-build-${{ matrix.os }}
+          path: |
+            release/*.exe
+            release/*.dmg
+            release/*.AppImage
+            release/*.deb
+            release/*.blockmap
+          if-no-files-found: error
+
+  publish:
+    name: Create Unified Release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download All Runner Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artifacts
+          pattern: electron-build-*
+          merge-multiple: true
+
+      - name: Publish Consolidated GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: release-${{ github.run_number }}
+          name: Markdown Reader Release ${{ github.run_number }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: |
+            release-artifacts/*.exe
+            release-artifacts/*.dmg
+            release-artifacts/*.AppImage
+            release-artifacts/*.deb
+            release-artifacts/*.blockmap

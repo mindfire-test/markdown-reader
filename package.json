@@ -9,7 +9,6 @@
     "dev": "electron-vite dev",
     "build": "electron-vite build",
     "dist": "pnpm build && electron-builder --publish never",
-    "dist:publish": "pnpm build && electron-builder --publish always",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "changeset:auto": "node .github/create-auto-changeset.js",
