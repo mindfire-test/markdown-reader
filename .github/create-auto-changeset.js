@@ -1,48 +1,44 @@
 /* eslint-disable no-undef */
-import { execSync } from 'node:child_process';
-import fs from 'node:fs';
-import path from 'node:path';
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
 
-const PACKAGE_NAME = 'markdown-reader';
 const CHANGESET_DIR = '.changeset';
 
-const commitMessage = execSync('git log -1 --format=%s').toString().trim();
+if (fs.existsSync(CHANGESET_DIR)) {
+  const existingAutoChangesets = fs
+    .readdirSync(CHANGESET_DIR)
+    .filter((f) => f.startsWith('auto-') && f.endsWith('.md'));
 
-const rules = [
-  { type: 'major', regex: /!:|BREAKING CHANGE/i },
-  { type: 'minor', regex: /^feat(\(.+\))?:/ },
-  { type: 'patch', regex: /^fix(\(.+\))?:/ },
-  { type: 'patch', regex: /^perf(\(.+\))?:/ },
-];
-
-const changeType = rules.find((rule) => rule.regex.test(commitMessage))?.type;
-
-if (!changeType) {
-  console.log('No changeset needed.');
-  process.exit(0);
-}
-
-if (!fs.existsSync(CHANGESET_DIR)) {
+  if (existingAutoChangesets.length > 0) {
+    console.log('Automated changeset already exists, skipping generation');
+    process.exit(0);
+  }
+} else {
   fs.mkdirSync(CHANGESET_DIR);
 }
 
-const existing = fs
-  .readdirSync(CHANGESET_DIR)
-  .filter((file) => file.endsWith('.md') && !file.startsWith('README'));
+const commitMessage =
+  process.env.COMMIT_MESSAGE || execSync('git log -1 --format=%s').toString().trim();
+console.log(`Processing commit message: "${commitMessage}"`);
 
-if (existing.length > 0) {
-  console.log('Changeset already exists. Skipping.');
-  process.exit(0);
+const isBreaking = /!:/.test(commitMessage) || commitMessage.includes('BREAKING CHANGE');
+let changeType = null;
+
+if (isBreaking) {
+  changeType = 'major';
+} else if (/^feat(\(.+\))?:/.test(commitMessage)) {
+  changeType = 'minor';
+} else if (/^fix(\(.+\))?:/.test(commitMessage) || /^perf(\(.+\))?:/.test(commitMessage)) {
+  changeType = 'patch';
 }
 
-const summary = commitMessage.replace(/^[a-z]+(\(.+\))?!?:\s*/i, '').trim();
+if (changeType) {
+  const summary = commitMessage.replace(/^[a-z]+(\(.+\))?!?:\s*/i, '').trim();
+  const changesetContent = `---\ntype: ${changeType}\n---\n${summary}\n`;
 
-const content = `---
-"${PACKAGE_NAME}": ${changeType}
----
-
-${summary}
-`;
-
-fs.writeFileSync(path.join(CHANGESET_DIR, `auto-${Date.now()}.md`), content);
-console.log(`Created ${changeType} changeset.`);
+  fs.writeFileSync(path.join(CHANGESET_DIR, `auto-${Date.now()}.md`), changesetContent);
+  console.log(`Changeset created → ${changeType}`);
+} else {
+  console.log('No valid convention commit found (feat, fix, perf). Skipping.');
+}
