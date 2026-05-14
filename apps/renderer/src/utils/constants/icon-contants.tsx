@@ -120,6 +120,18 @@ const ChevronRight = ({ size = 20, ...props }: IconProps) => (
   </svg>
 );
 
+const ChevronDown = ({ size = 20, ...props }: IconProps) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    {...defaultProps}
+    {...props}
+  >
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+);
+
 export const Icons = {
-X,Hamburger,ZoomIn,ZoomOut,Sun,Moon,Folder,ChevronRight
+X,Hamburger,ZoomIn,ZoomOut,Sun,Moon,Folder,ChevronRight,ChevronDown
 };
