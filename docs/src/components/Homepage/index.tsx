@@ -1,20 +1,15 @@
-import type {ReactNode} from 'react';
-import Layout from '@theme/Layout';
-import { HomepageHeader } from './header';
-import { FeaturesSection } from './features';
-import { HighlightsSection } from './highlights';
+import React from 'react';
+import styles from './styles.module.css';
+import ComponentShowcase from './components-showcase';
 
-
-export default function Home(): ReactNode {
+export default function HomepageFeatures(): React.JSX.Element {
   return (
-    <Layout
-      title="Markdown Reader"
-      description="A native desktop Markdown reader for technical documents, README files, notes, and specs.">
-      <HomepageHeader />
-      <main>
-        <FeaturesSection />
-        <HighlightsSection />
-      </main>
-    </Layout>
+    <section className={styles.componentShowcase}>
+      <div className="">
+        <div className="block md:hidden p-4">
+          <ComponentShowcase />
+        </div>
+      </div>
+    </section>
   );
 }

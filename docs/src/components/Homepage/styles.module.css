@@ -1,56 +1,35 @@
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
+.heroBanner {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  background: transparent;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.componentShowcase {
+  position: relative;
+  z-index: 1;
   width: 100%;
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
-}
-.heroBanner {
-  padding: 6rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-darker) 100%);
+@media (min-width: 640px) {
+  .heroContent {
+    max-width: 90%;
+    padding: 1.5rem 0;
+  }
 }
 
-.highlight {
-  color: white;
-  text-decoration: underline;
-  text-decoration-color: var(--ifm-color-primary-lightest);
-}
-
-.downloadWrapper {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.osIcons {
-  display: flex;
-  gap: 2rem;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  backdrop-filter: blur(10px);
-}
-
-.osIcons img {
-  transition: transform 0.2s ease;
-}
-
-.osIcons img:hover {
-  transform: translateY(-5px);
-}
-
-.ctaBtn {
-  font-weight: bold;
-  padding: 1rem 3rem;
-  border: none;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+@media (min-width: 1024px) {
+  .heroContent {
+    max-width: 1200px;
+    padding: 2rem 0;
+  }
 }
