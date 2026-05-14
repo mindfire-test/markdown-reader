@@ -11,42 +11,44 @@ export function useCollapsibleToc(tocItems: TOCType[]) {
     }));
   }, []);
 
+  const childMap = useMemo(() => {
+    const map: Record<string, boolean> = {};
+    for (let i = 0; i < tocItems.length; i++) {
+      const currentItem = tocItems[i];
+      const nextItem = tocItems[i + 1];
+      if (!currentItem) continue;
+      map[currentItem.id] = nextItem ? nextItem.level > currentItem.level : false;
+    }
+    return map;
+  }, [tocItems]);
+
   const visibleItems = useMemo(() => {
-    return tocItems.filter((item, index) => {
-      let currentLevel = item.level;
+    const visible: TOCType[] = [];
+    let activeHiddenLevel: number | null = null;
 
-      for (let i = index - 1; i >= 0; i--) {
-        const previous = tocItems[i];
-        if (!previous) {
+    for (let i = 0; i < tocItems.length; i++) {
+      const item = tocItems[i];
+      if (!item) continue;
+      if (activeHiddenLevel !== null) {
+        if (item.level > activeHiddenLevel) {
           continue;
-        }
-
-        if (previous.level < currentLevel) {
-          if (collapsedItems[previous.id]) {
-            return false;
-          }
-          currentLevel = previous.level;
+        } else {
+          activeHiddenLevel = null;
         }
       }
-
-      return true;
-    });
+      visible.push(item);
+      if (collapsedItems[item.id]) {
+        activeHiddenLevel = item.level;
+      }
+    }
+    return visible;
   }, [tocItems, collapsedItems]);
 
   const hasChildren = useCallback(
     (id: string) => {
-      const index = tocItems.findIndex((item) => item.id === id);
-      if (index === -1) return false;
-
-      const currentItem = tocItems[index];
-      const nextItem = tocItems[index + 1];
-      if (!currentItem || !nextItem) {
-        return false;
-      }
-
-      return nextItem.level > currentItem.level;
+      return Boolean(childMap[id]);
     },
-    [tocItems]
+    [childMap]
   );
 
   const isCollapsed = useCallback((id: string) => Boolean(collapsedItems[id]), [collapsedItems]);
