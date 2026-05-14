@@ -9,8 +9,80 @@ permissions:
   contents: write
   
 jobs:
+  # add change set 
+  version_and_tag:
+    name: Prepare Version Commit
+    runs-on: ubuntu-latest
+    outputs:
+      new_sha: ${{ steps.commit-version.outputs.sha }}
+      tag: ${{ steps.package-version.outputs.tag }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions@github.com"
+          git config --local user.name "GitHub Actions"
+
+      - name: Generate changeset from commit message
+        run: pnpm changeset:auto
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+
+      - name: Create Release version
+        run: pnpm changeset:version
+
+      - name: Read package version
+        id: package-version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Commit version changes
+        id: commit-version
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git add package.json pnpm-lock.yaml CHANGELOG.md .changeset
+            git commit -m "chore(release): release ${{ steps.package-version.outputs.tag }} [skip ci]" --no-verify
+            
+            # 1. Create the local Git tag
+            git tag ${{ steps.package-version.outputs.tag }}
+            
+            # 2. Push the branch commit (Fixed syntax using clean slashes and variable structures)
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref_name }}
+            
+            # 3. Push the tag to GitHub remote
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git ${{ steps.package-version.outputs.tag }}
+            
+            echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+          else
+            # Safeguard: Force-tag if nothing changed to give the publish step a stable target point
+            git tag -f ${{ steps.package-version.outputs.tag }}
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git ${{ steps.package-version.outputs.tag }} --force
+            echo "sha=${{ github.sha }}" >> $GITHUB_OUTPUT
+          fi
+
+
   build:
     name: Build (${{ matrix.os }})
+    needs: version_and_tag
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -20,11 +92,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version_and_tag.outputs.new_sha }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
-        with:
-          version: 10
  
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -61,9 +133,10 @@ jobs:
             release/*.blockmap
           if-no-files-found: error
 
+
   publish:
     name: Create Unified Release
-    needs: build
+    needs: [version_and_tag,build]
     runs-on: ubuntu-latest
     steps:
       - name: Download All Runner Artifacts
@@ -76,11 +149,16 @@ jobs:
       - name: Publish Consolidated GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: release-${{ github.run_number }}
-          name: Markdown Reader Release ${{ github.run_number }}
+          tag_name: ${{ needs.version_and_tag.outputs.tag }}
+          target_commitish: ${{ needs.version_and_tag.outputs.new_sha }}
+          name: Markdown Reader Release ${{ needs.version_and_tag.outputs.tag }}
           draft: false
           prerelease: false
-          generate_release_notes: true
+          generate_release_notes: false
+          body: |
+            Automated release for Markdown Reader.
+
+            See CHANGELOG.md for the full release notes.
           files: |
             release-artifacts/*.exe
             release-artifacts/*.dmg
