@@ -6,12 +6,16 @@ const config: Config = {
   title: 'Markdown Reader',
   tagline: 'PDF-reader comfort for Markdown files.',
   favicon: 'img/logo.png',
-  url: 'https://your-docusaurus-site.example.com',
-  baseUrl: '/',
+  url: 'https://mindfiredigital.github.io',
+  baseUrl: '/markdown-reader/',
   organizationName: 'mindfiredigital',
   projectName: 'markdown-reader',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  markdown: {
+   hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
