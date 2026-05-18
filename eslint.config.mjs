@@ -5,7 +5,7 @@ import tsPlugin from "@typescript-eslint/eslint-plugin";
 
 export default [
   {
-    ignores: ["**/dist/**", "**/out/**", "node_modules","**/.docusaurus/**"]
+    ignores: ["**/dist/**", "**/out/**", "node_modules","**/.docusaurus/**","**/build/**"]
   },
   js.configs.recommended,
   {
