@@ -46,10 +46,12 @@ const config: Configuration = {
     icon: 'assets/icon.icns',
     target: ['dmg'],
     type: 'distribution',
+    artifactName: 'Markdown-Reader.${ext}',
   },
   win: {
     icon: 'assets/icon.ico',
     target: [{ target: 'nsis', arch: ['x64'] }],
+    artifactName: 'Markdown-Reader-Setup.${ext}',
   },
   nsis: {
     oneClick: false,
@@ -64,6 +66,7 @@ const config: Configuration = {
     category: 'Utility',
     mimeTypes: ['text/markdown'],
     maintainer: 'Mindfire Digital <ashminita12@gmail.com>',
+    artifactName: 'Markdown-Reader.${ext}',
   },
 };
 

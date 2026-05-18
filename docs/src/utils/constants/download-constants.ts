@@ -5,19 +5,19 @@ export const downloads = [
   {
     name: 'Windows',
     format: '.exe installer',
-    href: 'https://github.com/mindfiredigital/markdown-reader/releases/latest/download/Markdown-Reader-Setup-1.0.0.exe',
+    href: 'https://github.com/mindfiredigital/markdown-reader/releases/latest/download/Markdown-Reader-Setup.exe',
     icon: windowsIcon,
   },
   {
     name: 'macOS',
     format: '.dmg package',
-    href: 'https://github.com/mindfiredigital/markdown-reader/releases/latest/download/Markdown-Reader-1.0.0-arm64.dmg',
+    href: 'https://github.com/mindfiredigital/markdown-reader/releases/latest/download/Markdown-Reader.dmg',
     icon: macosIcon,
   },
   {
     name: 'Linux',
     format: '.AppImage / .deb',
-    href: 'https://github.com/mindfiredigital/markdown-reader/releases/latest/download/markdown-reader_1.0.0_amd64.deb',
-    icon: linuxIcon ,
+    href: 'https://github.com/mindfiredigital/markdown-reader/releases/latest/download/Markdown-Reader.deb',
+    icon: linuxIcon,
   },
 ];
