@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import styles from './styles.module.css';
 import {
   ArrowRight,
-  Download,
   GitBranchIcon,
 } from 'lucide-react';
 import { downloads } from '@site/src/utils/constants/download-constants';
@@ -81,14 +80,13 @@ export function HeroSection() {
                     <span className="text-xs text-muted-foreground font-mono mb-4">
                       {item.format}
                     </span>
-                    <a
-                      href={item.href}
-                      download
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline no-underline transition-colors group"
-                    >
-                      <Download className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
-                      Download
-                    </a>
+                    <div className="flex items-center gap-2">
+                       {item.links.map((link) => (
+                       <a key={link.label} href={link.href} download className="inline-flex items-center justify-center px-3 py-1.5 rounded-md text-xs font-medium border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-all active:scale-[0.98]">
+                          {link.label}
+                       </a>
+                        ))}
+                    </div>
                   </div>
                 ))}
               </div>
